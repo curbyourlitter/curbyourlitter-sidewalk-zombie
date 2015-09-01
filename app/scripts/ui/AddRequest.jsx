@@ -72,10 +72,6 @@ export var AddRequest = React.createClass({
         };
     },
 
-    componentWillUnmount: function () {
-        this.props.dispatch(pinDropActive(false));
-    },
-
     validateRequest: function () {
         return (this.state.requestType && this.props.pinDropLatlng && this.state.name && this.state.email);
     },
