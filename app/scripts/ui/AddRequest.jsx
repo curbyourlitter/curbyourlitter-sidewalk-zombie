@@ -20,7 +20,7 @@ var ImageInput = React.createClass({
 
     render: function () {
         return (
-            <Input onChange={this.handleChange} type="file" label={this.props.label} value={this.state.value} />
+            <Input accept="image/*" onChange={this.handleChange} type="file" label={this.props.label} value={this.state.value} />
         );
     }
 });
