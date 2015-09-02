@@ -9,18 +9,62 @@ import config from '../config/config';
 var ImageInput = React.createClass({
     getInitialState: function () {
         return {
+            error: null,
+            submitting: false,
+            submitted: false,
+            thumbnail: null,
             value: null
         };
     },
 
     handleChange: function (e) {
-        this.setState({ value: e.target.value });
-        this.props.onChangeCallback(e.target.files[0]);
+        // When the image is set, try to upload it
+        var file = e.target.files[0];
+        this.setState({
+            submitting: true,
+            value: e.target.value
+        });
+        this.props.onChangeCallback();
+
+        var formData = new FormData();
+        if (file) {
+            formData.append('image', file, file.name);
+        }
+        qwest.post(config.apiBase + '/canrequests/image/', formData)
+            .then((xhr, data) => {
+                this.setState({
+                    submitted: true,
+                    thumbnail: data.thumb_url
+                });
+                if (data.lat && data.lon) {
+                    this.props.onLocation([data.lat, data.lon]);
+                }
+                this.props.onPk(data.pk);
+            })
+            .catch((xhr, response, e) => {
+                this.setState({ error: e });
+            })
+            .complete(() => {
+                this.setState({ submitting: false });
+            });
     },
 
     render: function () {
         return (
-            <Input accept="image/*" onChange={this.handleChange} type="file" label={this.props.label} value={this.state.value} />
+            <div>
+                <div className="image-input-thumbnail">
+                    {(() => {
+                        if (this.state.thumbnail) {
+                            return <img src={this.state.thumbnail} />;
+                        }
+                    })()}
+                </div>
+                <Input accept="image/*" onChange={this.handleChange} type="file" label={this.props.label} value={this.state.value} />
+                <div className="image-input-message">
+                    {this.state.submitting ? 'submitting...' : ''}
+                    {this.state.submitted ? 'success!' : ''}
+                </div>
+            </div>
         );
     }
 });
@@ -31,7 +75,9 @@ var AddRequestForm = React.createClass({
             comment: null,
             email: null,
             image: null,
-            name: null
+            name: null,
+            latlng: null,
+            pk: null
         };
     },
 
@@ -39,10 +85,18 @@ var AddRequestForm = React.createClass({
         this.setState({ image: image });
     },
 
+    locationChange: function (latlng) {
+        this.setState({ latlng: latlng });
+    },
+
+    pkChange: function (pk) {
+        this.setState({ pk: pk });
+    },
+
     render: function () {
         return (
             <form className="add-request-form" onSubmit={this.props.submitRequest}>
-                <ImageInput onChangeCallback={this.imageChange} label="Photo" />
+                <ImageInput onChangeCallback={this.imageChange} onLocation={this.locationChange} onPk={this.pkChange} label="Photo" />
                 <Input type="select" onChange={(e) => this.setState({ canType: e.target.value })} label="Can type" value={this.state.canType}>
                     <option value="bigbelly">bigbelly</option>
                     <option value="recycling">recycling</option>
