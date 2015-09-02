@@ -15,7 +15,7 @@ var ImageInput = React.createClass({
 
     handleChange: function (e) {
         this.setState({ value: e.target.value });
-        this.props.onChangeCallback({ image: e.target.files[0] });
+        this.props.onChangeCallback(e.target.files[0]);
     },
 
     render: function () {
@@ -35,14 +35,14 @@ var AddRequestForm = React.createClass({
         };
     },
 
-    fieldChange: function (updates) {
-        this.setState(updates);
+    imageChange: function (image) {
+        this.setState({ image: image });
     },
 
     render: function () {
         return (
             <form className="add-request-form" onSubmit={this.props.submitRequest}>
-                <ImageInput onChangeCallback={this.fieldChange} label="Photo" />
+                <ImageInput onChangeCallback={this.imageChange} label="Photo" />
                 <Input type="select" onChange={(e) => this.setState({ canType: e.target.value })} label="Can type" value={this.state.canType}>
                     <option value="bigbelly">bigbelly</option>
                     <option value="recycling">recycling</option>
