@@ -35,10 +35,6 @@ var AddRequestForm = React.createClass({
         };
     },
 
-    commentChange: function (e) {
-        this.setState({ comment: e.target.value });
-    },
-
     fieldChange: function (updates) {
         this.setState(updates);
     },
@@ -57,7 +53,7 @@ var AddRequestForm = React.createClass({
                     <option value="medium">medium</option>
                     <option value="large">large</option>
                 </Input>
-                <Input type="textarea" onChange={this.commentChange} value={this.state.comment} label="Comment (optional)" />
+                <Input type="textarea" onChange={(e) => this.setState({ comment: e.target.value })} value={this.state.comment} label="Comment (optional)" />
                 <Input type="text" onChange={(e) => this.setState({ name: e.target.value })} label="Name" value={this.state.name} />
                 <Input type="email" onChange={(e) => this.setState({ email: e.target.value })} label="Email Address" value={this.state.email} />
                 <Button type="submit" disabled={this.props.submitting} block>
