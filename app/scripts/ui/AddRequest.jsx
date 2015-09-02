@@ -47,7 +47,12 @@ var AddRequestForm = React.createClass({
         return (
             <form className="add-request-form" onSubmit={this.props.submitRequest}>
                 <ImageInput onChangeCallback={this.fieldChange} label="Photo" />
-                <Input type="select" onChange={(e) => this.setState({ canSubType: e.target.value })} label="Can type" value={this.state.canSubType}>
+                <Input type="select" onChange={(e) => this.setState({ canType: e.target.value })} label="Can type" value={this.state.canType}>
+                    <option value="bigbelly">bigbelly</option>
+                    <option value="recycling">recycling</option>
+                    <option value="trash">trash</option>
+                </Input>
+                <Input type="select" onChange={(e) => this.setState({ canSubType: e.target.value })} label="Can size" value={this.state.canSubType}>
                     <option value="small">small</option>
                     <option value="medium">medium</option>
                     <option value="large">large</option>
@@ -83,8 +88,8 @@ export var AddRequest = React.createClass({
                 geomWkt = `POINT (${latlng.lng} ${latlng.lat})`;
             var formData = new FormData();
 
-            if (this.state.requestType) {
-                formData.append('can_type', this.state.requestType);
+            if (this.state.canType) {
+                formData.append('can_type', this.state.canType);
             }
             if (this.state.canSubType) {
                 formData.append('can_subtype', this.state.canSubType);
