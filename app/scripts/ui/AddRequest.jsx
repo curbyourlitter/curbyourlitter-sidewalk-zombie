@@ -61,8 +61,8 @@ var ImageInput = React.createClass({
                 </div>
                 <Input accept="image/*" onChange={this.handleChange} type="file" label={this.props.label} value={this.state.value} />
                 <div className="image-input-message">
-                    {this.state.submitting ? 'submitting...' : ''}
-                    {this.state.submitted ? 'success!' : ''}
+                    {this.state.submitting ? 'uploading...' : ''}
+                    {this.state.submitted ? 'uploaded' : ''}
                 </div>
             </div>
         );
