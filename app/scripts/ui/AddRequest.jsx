@@ -288,7 +288,6 @@ export var AddRequest = React.createClass({
                 .then(() => {
                     this.setState({
                         submitting: false,
-                        step: null,
                         success: true 
                     });
                 })
