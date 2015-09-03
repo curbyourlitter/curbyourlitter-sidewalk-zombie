@@ -214,87 +214,40 @@ var LocationInput = React.createClass({
     }
 });
 
-var AddRequestForm = React.createClass({
-    getInitialState: function () {
-        return {
-            comment: null,
-            email: null,
-            image: null,
-            name: null,
-            latlng: null,
-            pk: null
-        };
-    },
-
-    imageChange: function (image) {
-        this.setState({ image: image });
-    },
-
-    locationChange: function (latlng) {
-        this.setState({ latlng: latlng });
-    },
-
-    pkChange: function (pk) {
-        this.setState({ pk: pk });
-    },
-
-    render: function () {
-        return (
-            <form className="add-request-form" onSubmit={this.props.submitRequest}>
-                <ImageInput onChangeCallback={this.imageChange} onLocation={this.locationChange} onPk={this.pkChange} label="Photo" />
-                <LocationInput onLocationChange={(l) => this.setState({ latlng: l })} latlng={this.state.latlng} />
-                <Input type="select" onChange={(e) => this.setState({ canType: e.target.value })} label="Can type" value={this.state.canType}>
-                    <option value="bigbelly">bigbelly</option>
-                    <option value="recycling">recycling</option>
-                    <option value="trash">trash</option>
-                </Input>
-                <Input type="select" onChange={(e) => this.setState({ canSubType: e.target.value })} label="Can size" value={this.state.canSubType}>
-                    <option value="small">small</option>
-                    <option value="medium">medium</option>
-                    <option value="large">large</option>
-                </Input>
-                <Input type="textarea" onChange={(e) => this.setState({ comment: e.target.value })} value={this.state.comment} label="Comment (optional)" />
-                <Input type="text" onChange={(e) => this.setState({ name: e.target.value })} label="Name" value={this.state.name} />
-                <Input type="email" onChange={(e) => this.setState({ email: e.target.value })} label="Email Address" value={this.state.email} />
-                <Button type="submit" disabled={this.props.submitting} block>
-                    {this.props.submitting ?  'submitting...' : 'submit'}
-                </Button>
-            </form>
-        );
-    }
-});
-
 export var AddRequest = React.createClass({
     getInitialState: function () {
         return {
-            requestType: null,
+            pk: null,
+            latlng: null,
+            type: null,
+            comment: null,
+            name: null,
+            email: null,
+
             submitting: false,
-            success: false
+            success: false,
+            isValid: false
         };
     },
 
     validateRequest: function () {
-        return (this.state.requestType && this.props.pinDropLatlng && this.state.name && this.state.email);
+        return (this.state.pk && this.state.type && this.state.name && this.state.email);
     },
 
     submitRequest: function (e) {
         e.preventDefault();
         if (this.validateRequest()) {
-            var latlng = this.props.pinDropLatlng,
-                geomWkt = `POINT (${latlng.lng} ${latlng.lat})`;
-            var formData = new FormData();
+            var geomWkt = `POINT (${this.state.latlng[0]} ${this.state.latlng[1]})`,
+                formData = new FormData();
 
-            if (this.state.canType) {
-                formData.append('can_type', this.state.canType);
+            if (this.state.type) {
+                formData.append('can_type', this.state.type);
             }
             if (this.state.canSubType) {
                 formData.append('can_subtype', this.state.canSubType);
             }
             if (this.state.comment) {
                 formData.append('comment', this.state.comment);
-            }
-            if (this.state.image) {
-                formData.append('image', this.state.image, this.state.image.name);
             }
             formData.append('name', this.state.name);
             formData.append('email', this.state.email);
@@ -315,7 +268,28 @@ export var AddRequest = React.createClass({
 
     render: function () {
         return (
-            <AddRequestForm/>
+            <form className="add-request-form" onSubmit={this.submitRequest}>
+                <ImageInput label="Photo"
+                    onChangeCallback={(image) => this.setState({ image: image })} 
+                    onLocation={(latlng) => this.setState({ latlng: latlng })} 
+                    onPk={(pk) => this.setState({ pk: pk })} />
+                <LocationInput onLocationChange={(l) => this.setState({ latlng: l })} latlng={this.state.latlng} />
+                <Input type="select" onChange={(e) => this.setState({ type: e.target.value })} label="What do you think would help?" value={this.state.type}>
+                    <option value="trash">Add a litter basket</option>
+                    <option value="recycling_plastic">Add a plastic recycling bin</option>
+                    <option value="recycling_metal">Add a metal recycling bin</option>
+                    <option value="bigbelly">Add a bigbelly</option>
+                    <option value="bigbelly_plastic">Add a bigbelly plastic recycling bin</option>
+                    <option value="bigbelly_metal">Add a bigbelly metal recycling bin</option>
+                    <option value="other">Other</option>
+                </Input>
+                <Input type="textarea" onChange={(e) => this.setState({ comment: e.target.value })} value={this.state.comment} label="Comment (optional)" />
+                <Input type="text" onChange={(e) => this.setState({ name: e.target.value })} label="Name" value={this.state.name} placeholder="Name" />
+                <Input type="email" onChange={(e) => this.setState({ email: e.target.value })} label="Email Address" value={this.state.email} placeholder="Email Address" />
+                <Button type="submit" disabled={!this.validateRequest() || this.state.submitting} block>
+                    {this.state.submitting ?  'submitting...' : 'submit'}
+                </Button>
+            </form>
         );
     }
 });
