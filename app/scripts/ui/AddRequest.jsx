@@ -10,6 +10,7 @@ var ImageInput = React.createClass({
     getInitialState: function () {
         return {
             error: null,
+            progress: 0,
             submitting: false,
             submitted: false,
             thumbnail: null,
@@ -30,7 +31,11 @@ var ImageInput = React.createClass({
         if (file) {
             formData.append('image', file, file.name);
         }
-        qwest.post(config.apiBase + '/canrequests/image/', formData)
+        qwest.post(config.apiBase + '/canrequests/image/', formData, null, (xhr) => {
+            xhr.upload.onprogress = (e) => {
+                this.setState({ progress: (e.loaded / e.total) * 100 });
+            };
+        })
             .then((xhr, data) => {
                 this.setState({
                     submitted: true,
@@ -77,8 +82,13 @@ var ImageInput = React.createClass({
                                 <Col xs={9}>
                                     <Row>
                                         <div className="image-input-message">
-                                            {this.state.submitting ? 'uploading...' : ''}
-                                            {this.state.submitted ? 'uploaded' : ''}
+                                            <div>
+                                                {this.state.submitting ? 'uploading...' : ''}
+                                                {this.state.submitted ? 'uploaded' : ''}
+                                            </div>
+                                            <div>
+                                                {this.state.progress}%
+                                            </div>
                                         </div>
                                         <div className="image-input-actions">
                                             <a onClick={this.clear}>remove</a>
