@@ -104,6 +104,116 @@ var ImageInput = React.createClass({
     }
 });
 
+var LocationInput = React.createClass({
+    getInitialState: function () {
+        return {
+            address: null,
+            gettingLocation: false,
+            gotLocation: false,
+            useFoundLocation: null,
+            zip: 11222
+        }
+    },
+
+    getLocation: function () {
+        this.setState({ gettingLocation: true });
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                console.log(position.coords);
+                this.setState({
+                    gettingLocation: false,
+                    gotLocation: true
+                });
+                this.props.onLocationChange([ position.coords.latitude, position.coords.longitude ]);
+            },
+            (e) => {
+                // TODO handle more appropriately
+                console.warn(e);
+                this.setState({ gettingLocation: false });
+            }
+        );       
+    },
+
+    submitAddress: function () {
+        this.setState({ gettingLocation: true });
+        var geocoder = new google.maps.Geocoder,
+            params = {
+                address: `${this.state.address} , Brooklyn, NY ${this.state.zip}`,
+
+                // Keep it in the zip code we're interested in
+                componentRestrictions: {
+                    postalCode: this.state.zip.toString()
+                }
+            };
+        geocoder.geocode(params, (results, status) => {
+            if (status === google.maps.GeocoderStatus.OK) {
+                var latlng = [results[0].geometry.location.lat(), results[0].geometry.location.lng()];
+                this.props.onLocationChange(latlng);
+                this.setState({
+                    gettingLocation: false,
+                    gotLocation: true
+                });
+            }
+            else {
+                // TODO handle more appropriately
+                console.warn(status);
+                this.setState({ gettingLocation: false });
+            }
+        });
+    },
+
+    render: function () {
+        var message,
+            body;
+
+        if (this.state.gettingLocation) {
+            message = 'Getting location...';
+        }
+        else if (!this.props.latlng) {
+            message = 'Help us find where the trash is.';
+            body = <Button block onClick={this.getLocation}>Share your location</Button>;
+        }
+        else {
+            if (this.state.gotLocation) {
+                message = 'Got your location!';
+            }
+            else if (this.state.useFoundLocation === null) {
+                message = 'Hey, we found location data in your photo, can we use it to place it on the map?';
+                body = (
+                    <div>
+                        <Button onClick={() => this.setState({ useFoundLocation: true })}>
+                            Yes
+                        </Button>
+                        <Button onClick={() => this.setState({ useFoundLocation: false })}>
+                            No, I'll do it
+                        </Button>
+                    </div>
+                );
+            }
+            else if (this.state.useFoundLocation === true) {
+                message = 'Using the location in the image.';
+            }
+            else if (this.state.useFoundLocation === false) {
+                message = 'Enter the location:';
+                body = (
+                    <div>
+                        <Input type="text" label="Address" placeholder="eg, 237 Eckford St" onChange={(e) => { this.setState({ address: e.target.value })}} value={this.state.address} />
+                        <Input type="text" label="Zipcode" value={this.state.zip} readOnly />
+                        <Button onClick={this.submitAddress}>Submit</Button>
+                    </div>
+                );
+            }
+        }
+
+        return (
+            <div className="location-input">
+                <div className="location-input-message">{message}</div>
+                {body}
+            </div>
+        );
+    }
+});
+
 var AddRequestForm = React.createClass({
     getInitialState: function () {
         return {
@@ -132,6 +242,7 @@ var AddRequestForm = React.createClass({
         return (
             <form className="add-request-form" onSubmit={this.props.submitRequest}>
                 <ImageInput onChangeCallback={this.imageChange} onLocation={this.locationChange} onPk={this.pkChange} label="Photo" />
+                <LocationInput onLocationChange={(l) => this.setState({ latlng: l })} latlng={this.state.latlng} />
                 <Input type="select" onChange={(e) => this.setState({ canType: e.target.value })} label="Can type" value={this.state.canType}>
                     <option value="bigbelly">bigbelly</option>
                     <option value="recycling">recycling</option>
