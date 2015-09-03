@@ -266,24 +266,25 @@ export var AddRequest = React.createClass({
         if (this.validateRequest()) {
             this.setState({ submitting: true });
 
-            var formData = new FormData(),
+            var data = {
+                    email: this.state.email,
+                    geom: this.getGeom(),
+                    name: this.state.name
+                },
                 canType = this.getType(),
                 canSubType = this.getSubType();
 
             if (canType) {
-                formData.append('can_type', canType);
+                data.can_type = canType;
             }
             if (canSubType) {
-                formData.append('can_subtype', canSubType);
+                data.can_subtype = canSubType;
             }
             if (this.state.comment) {
-                formData.append('comment', this.state.comment);
+                data.comment = this.state.comment;
             }
-            formData.append('name', this.state.name);
-            formData.append('email', this.state.email);
-            formData.append('geom', this.getGeom());
 
-            qwest.post(config.apiBase + '/canrequests/', formData)
+            qwest.put(config.apiBase + `/canrequests/${this.state.pk}/`, data)
                 .then(() => {
                     this.setState({
                         submitting: false,
