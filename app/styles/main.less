@@ -33,3 +33,32 @@ header {
 .add-request-form {
     padding: 25px;
 }
+
+.image-input {
+    &-thumbnail {
+        .make-xs-column(3, 0);
+        background: gray;
+        height: 75px;
+        width: 75px;
+
+        img {
+            max-height: 100%;
+            max-width: 100%;
+        }
+    }
+
+    &-field {
+        .make-xs-column(9);
+        display: inline-block;
+    }
+
+    &-message {
+        .make-xs-column(6);
+        display: inline-block;
+    }
+
+    &-actions {
+        .make-xs-column(6);
+        display: inline-block;
+    }
+}

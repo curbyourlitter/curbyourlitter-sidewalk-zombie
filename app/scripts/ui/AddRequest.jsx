@@ -1,6 +1,6 @@
 import _ from 'underscore';
 import React from 'react';
-import { Button, Input } from 'react-bootstrap';
+import { Button, Col, Grid, Input, Row } from 'react-bootstrap';
 import { Link } from 'react-router';
 import qwest from 'qwest';
 
@@ -49,22 +49,47 @@ var ImageInput = React.createClass({
             });
     },
 
+    clear: function () {
+        this.setState(this.getInitialState());
+    },
+
     render: function () {
         return (
-            <div>
-                <div className="image-input-thumbnail">
+            <Grid>
+                <Row>
+                    <div className="image-input-thumbnail">
+                        {(() => {
+                            if (this.state.thumbnail) {
+                                return <img src={this.state.thumbnail} />;
+                            }
+                        })()}
+                    </div>
                     {(() => {
-                        if (this.state.thumbnail) {
-                            return <img src={this.state.thumbnail} />;
+                        if (!(this.state.submitting || this.state.submitted)) {
+                            return (
+                                <div className="image-input-field">
+                                    <Input accept="image/*" onChange={this.handleChange} type="file" label={this.props.label} value={this.state.value} />
+                                </div>
+                            );
+                        }
+                        else {
+                            return (
+                                <Col xs={9}>
+                                    <Row>
+                                        <div className="image-input-message">
+                                            {this.state.submitting ? 'uploading...' : ''}
+                                            {this.state.submitted ? 'uploaded' : ''}
+                                        </div>
+                                        <div className="image-input-actions">
+                                            <a onClick={this.clear}>remove</a>
+                                        </div>
+                                    </Row>
+                                </Col>
+                            );
                         }
                     })()}
-                </div>
-                <Input accept="image/*" onChange={this.handleChange} type="file" label={this.props.label} value={this.state.value} />
-                <div className="image-input-message">
-                    {this.state.submitting ? 'uploading...' : ''}
-                    {this.state.submitted ? 'uploaded' : ''}
-                </div>
-            </div>
+                </Row>
+            </Grid>
         );
     }
 });
