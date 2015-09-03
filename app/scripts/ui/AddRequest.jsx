@@ -230,6 +230,33 @@ export var AddRequest = React.createClass({
         };
     },
 
+    getGeom: function () {
+        return `POINT (${this.state.latlng[0]} ${this.state.latlng[1]})`;
+    },
+
+    getType: function () {
+        var type = this.state.type;
+        if (type === 'trash') {
+            return 'trash';
+        }
+        else if (type.indexOf('recycling') === 0) {
+            return 'recycling';
+        }
+        else if (type.indexOf('bigbelly') === 0) {
+            return 'bigbelly';
+        }
+    },
+
+    getSubType: function () {
+        var type = this.state.type;
+        if (type.indexOf('plastic') > 0) {
+            return 'plastic';
+        }
+        else if (type.indexOf('metal') > 0) {
+            return 'metal';
+        }
+    },
+
     validateRequest: function () {
         return (this.state.pk && this.state.type && this.state.name && this.state.email);
     },
@@ -237,23 +264,25 @@ export var AddRequest = React.createClass({
     submitRequest: function (e) {
         e.preventDefault();
         if (this.validateRequest()) {
-            var geomWkt = `POINT (${this.state.latlng[0]} ${this.state.latlng[1]})`,
-                formData = new FormData();
+            this.setState({ submitting: true });
 
-            if (this.state.type) {
-                formData.append('can_type', this.state.type);
+            var formData = new FormData(),
+                canType = this.getType(),
+                canSubType = this.getSubType();
+
+            if (canType) {
+                formData.append('can_type', canType);
             }
-            if (this.state.canSubType) {
-                formData.append('can_subtype', this.state.canSubType);
+            if (canSubType) {
+                formData.append('can_subtype', canSubType);
             }
             if (this.state.comment) {
                 formData.append('comment', this.state.comment);
             }
             formData.append('name', this.state.name);
             formData.append('email', this.state.email);
-            formData.append('geom', geomWkt);
+            formData.append('geom', this.getGeom());
 
-            this.setState({ submitting: true });
             qwest.post(config.apiBase + '/canrequests/', formData)
                 .then(() => {
                     this.setState({
