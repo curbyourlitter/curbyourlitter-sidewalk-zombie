@@ -226,8 +226,7 @@ export var AddRequest = React.createClass({
 
             error: true,
             submitting: false,
-            success: false,
-            isValid: false
+            success: false
         };
     },
 
