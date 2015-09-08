@@ -1,6 +1,6 @@
 import _ from 'underscore';
 import React from 'react';
-import { Button, Col, Grid, Input, Row } from 'react-bootstrap';
+import { Alert, Button, Col, Grid, Input, Row } from 'react-bootstrap';
 import { Link } from 'react-router';
 import qwest from 'qwest';
 
@@ -224,6 +224,7 @@ export var AddRequest = React.createClass({
             name: null,
             email: null,
 
+            error: true,
             submitting: false,
             success: false,
             isValid: false
@@ -286,10 +287,18 @@ export var AddRequest = React.createClass({
 
             qwest.put(config.apiBase + `/canrequests/${this.state.pk}/`, data)
                 .then(() => {
-                    this.setState({
-                        submitting: false,
-                        success: true 
-                    });
+                    if (data.error) {
+                        this.setState({
+                            error: true,
+                            submitting: false
+                        });
+                    }
+                    else {
+                        this.setState({
+                            submitting: false,
+                            success: true 
+                        });
+                    }
                 })
                 .catch(() => console.warn('error'));
         }
@@ -318,6 +327,15 @@ export var AddRequest = React.createClass({
                 <Button type="submit" disabled={!this.validateRequest() || this.state.submitting} block>
                     {this.state.submitting ?  'submitting...' : 'submit'}
                 </Button>
+                {(() => {
+                    if (this.state.error) {
+                        return (
+                            <Alert bsStyle="danger">
+                                There was an error while submitting the request, please try again and let us know if the error persists.
+                            </Alert>
+                        );
+                    }
+                })()}
             </form>
         );
     }
