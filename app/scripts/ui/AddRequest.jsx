@@ -108,6 +108,7 @@ var LocationInput = React.createClass({
     getInitialState: function () {
         return {
             address: null,
+            error: null,
             gettingLocation: false,
             gotLocation: false,
             useFoundLocation: null,
@@ -119,7 +120,6 @@ var LocationInput = React.createClass({
         this.setState({ gettingLocation: true });
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                console.log(position.coords);
                 this.setState({
                     gettingLocation: false,
                     gotLocation: true
@@ -127,9 +127,10 @@ var LocationInput = React.createClass({
                 this.props.onLocationChange([ position.coords.latitude, position.coords.longitude ]);
             },
             (e) => {
-                // TODO handle more appropriately
-                console.warn(e);
-                this.setState({ gettingLocation: false });
+                this.setState({
+                    error: 'There was an error while getting your location. Do you have location enabled on your phone? Please try again and let us know if the error persists.',
+                    gettingLocation: false
+                });
             }
         );       
     },
@@ -155,9 +156,10 @@ var LocationInput = React.createClass({
                 });
             }
             else {
-                // TODO handle more appropriately
-                console.warn(status);
-                this.setState({ gettingLocation: false });
+                this.setState({
+                    error: 'There was an error while getting the position of the address you entered. Please try again and let us know if the problem persists.',
+                    gettingLocation: false
+                });
             }
         });
     },
@@ -203,6 +205,15 @@ var LocationInput = React.createClass({
                     </div>
                 );
             }
+        }
+
+        if (this.state.error) {
+            body = (
+                <div>
+                    <Alert bsStyle='danger'>{this.state.error}</Alert>
+                    {body}
+                </div>
+            );
         }
 
         return (
