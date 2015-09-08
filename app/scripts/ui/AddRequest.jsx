@@ -171,9 +171,24 @@ var LocationInput = React.createClass({
         if (this.state.gettingLocation) {
             message = 'Getting location...';
         }
+        else if (this.state.useFoundLocation === false) {
+            message = 'Enter the location:';
+            body = (
+                <div>
+                    <Input type="text" label="Address" placeholder="eg, 237 Eckford St" onChange={(e) => { this.setState({ address: e.target.value })}} value={this.state.address} />
+                    <Input type="text" label="Zipcode" value={this.state.zip} readOnly />
+                    <Button onClick={this.submitAddress}>Submit</Button>
+                </div>
+            );
+        }
         else if (!this.props.latlng) {
             message = 'Help us find where the trash is.';
-            body = <Button block onClick={this.getLocation}>Share your location</Button>;
+            body = (
+                <div>
+                    <Button onClick={this.getLocation}>Share your location</Button>
+                    <Button onClick={() => this.setState({ useFoundLocation: false })}>Enter an address</Button>
+                </div>
+            );
         }
         else {
             if (this.state.gotLocation) {
@@ -194,16 +209,6 @@ var LocationInput = React.createClass({
             }
             else if (this.state.useFoundLocation === true) {
                 message = 'Using the location in the image.';
-            }
-            else if (this.state.useFoundLocation === false) {
-                message = 'Enter the location:';
-                body = (
-                    <div>
-                        <Input type="text" label="Address" placeholder="eg, 237 Eckford St" onChange={(e) => { this.setState({ address: e.target.value })}} value={this.state.address} />
-                        <Input type="text" label="Zipcode" value={this.state.zip} readOnly />
-                        <Button onClick={this.submitAddress}>Submit</Button>
-                    </div>
-                );
             }
         }
 
