@@ -99,6 +99,18 @@ var ImageInput = React.createClass({
                         }
                     })()}
                 </Row>
+                {(() => {
+                    if (this.state.error) {
+                        return (
+                            <Alert bsStyle='danger'>
+                                There was an error while uploading the photo. Please try again and let us know if the error persists.
+                            </Alert>
+                        );
+                    }
+                })()}
+                <Row>
+
+                </Row>
             </Grid>
         );
     }
