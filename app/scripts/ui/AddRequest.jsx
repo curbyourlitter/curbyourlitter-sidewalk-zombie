@@ -224,7 +224,7 @@ export var AddRequest = React.createClass({
             name: null,
             email: null,
 
-            error: true,
+            error: false,
             submitting: false,
             success: false
         };
