@@ -109,6 +109,7 @@ var LocationInput = React.createClass({
         return {
             address: null,
             error: null,
+            enterAddress: null,
             gettingLocation: false,
             gotLocation: false,
             useFoundLocation: null,
@@ -136,7 +137,10 @@ var LocationInput = React.createClass({
     },
 
     submitAddress: function () {
-        this.setState({ gettingLocation: true });
+        this.setState({
+            enterAddress: false,
+            gettingLocation: true
+        });
         var geocoder = new google.maps.Geocoder,
             params = {
                 address: `${this.state.address} , Brooklyn, NY ${this.state.zip}`,
@@ -171,7 +175,7 @@ var LocationInput = React.createClass({
         if (this.state.gettingLocation) {
             message = 'Getting location...';
         }
-        else if (this.state.useFoundLocation === false) {
+        else if (this.state.enterAddress) {
             message = 'Enter the location:';
             body = (
                 <div>
@@ -186,7 +190,7 @@ var LocationInput = React.createClass({
             body = (
                 <div>
                     <Button onClick={this.getLocation}>Share your location</Button>
-                    <Button onClick={() => this.setState({ useFoundLocation: false })}>Enter an address</Button>
+                    <Button onClick={() => this.setState({ enterAddress: true })}>Enter an address</Button>
                 </div>
             );
         }
@@ -201,7 +205,7 @@ var LocationInput = React.createClass({
                         <Button onClick={() => this.setState({ useFoundLocation: true })}>
                             Yes
                         </Button>
-                        <Button onClick={() => this.setState({ useFoundLocation: false })}>
+                        <Button onClick={() => this.setState({ enterAddress: true })}>
                             No, I'll do it
                         </Button>
                     </div>
