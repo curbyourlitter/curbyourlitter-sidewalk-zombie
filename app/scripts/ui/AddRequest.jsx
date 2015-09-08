@@ -235,6 +235,7 @@ export var AddRequest = React.createClass({
             name: null,
             email: null,
 
+            error: false,
             isValid: false,
             submitting: false,
             success: false
@@ -318,7 +319,9 @@ export var AddRequest = React.createClass({
                         });
                     }
                 })
-                .catch(() => console.warn('error'));
+                .catch(() => {
+                    this.setState({ error: true });
+                });
         }
     },
 
