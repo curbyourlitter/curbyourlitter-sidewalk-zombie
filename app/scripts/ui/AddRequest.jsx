@@ -224,10 +224,18 @@ export var AddRequest = React.createClass({
             name: null,
             email: null,
 
-            error: false,
+            isValid: false,
             submitting: false,
             success: false
         };
+    },
+
+    updateField: function (name, value) {
+        this.setState((previousState) => {
+            previousState[name] = value;
+            previousState.isValid = this.validateRequest(previousState);
+            return previousState;
+        });
     },
 
     getGeom: function () {
@@ -257,13 +265,13 @@ export var AddRequest = React.createClass({
         }
     },
 
-    validateRequest: function () {
-        return (this.state.pk && this.state.type && this.state.name && this.state.email);
+    validateRequest: function (fields) {
+        return (fields.pk && fields.type && fields.name && fields.email);
     },
 
     submitRequest: function (e) {
         e.preventDefault();
-        if (this.validateRequest()) {
+        if (this.validateRequest(this.state)) {
             this.setState({ submitting: true });
 
             var data = {
@@ -307,11 +315,11 @@ export var AddRequest = React.createClass({
         return (
             <form className="add-request-form" onSubmit={this.submitRequest}>
                 <ImageInput label="Photo"
-                    onChangeCallback={(image) => this.setState({ image: image })} 
-                    onLocation={(latlng) => this.setState({ latlng: latlng })} 
-                    onPk={(pk) => this.setState({ pk: pk })} />
-                <LocationInput onLocationChange={(l) => this.setState({ latlng: l })} latlng={this.state.latlng} />
-                <Input type="select" onChange={(e) => this.setState({ type: e.target.value })} label="What do you think would help?" value={this.state.type}>
+                    onChangeCallback={(image) => this.updateField('image', image)} 
+                    onLocation={(latlng) => this.updateField('latlng', latlng)} 
+                    onPk={(pk) => this.updateField('pk', pk)} />
+                <LocationInput onLocationChange={(l) => this.updateField('latlng', l)} latlng={this.state.latlng} />
+                <Input type="select" onChange={(e) => this.updateField('type', e.target.value)} label="What do you think would help?" value={this.state.type}>
                     <option value="trash">Add a litter basket</option>
                     <option value="recycling_plastic">Add a plastic recycling bin</option>
                     <option value="recycling_metal">Add a metal recycling bin</option>
@@ -320,10 +328,10 @@ export var AddRequest = React.createClass({
                     <option value="bigbelly_metal">Add a bigbelly metal recycling bin</option>
                     <option value="other">Other</option>
                 </Input>
-                <Input type="textarea" onChange={(e) => this.setState({ comment: e.target.value })} value={this.state.comment} label="Comment (optional)" />
-                <Input type="text" onChange={(e) => this.setState({ name: e.target.value })} label="Name" value={this.state.name} placeholder="Name" />
-                <Input type="email" onChange={(e) => this.setState({ email: e.target.value })} label="Email Address" value={this.state.email} placeholder="Email Address" />
-                <Button type="submit" disabled={!this.validateRequest() || this.state.submitting} block>
+                <Input type="textarea" onChange={(e) => this.updateField('comment', e.target.value)} value={this.state.comment} label="Comment (optional)" />
+                <Input type="text" onChange={(e) => this.updateField('name', e.target.value)} label="Name" value={this.state.name} placeholder="Name" />
+                <Input type="email" onChange={(e) => this.updateField('email', e.target.value)} label="Email Address" value={this.state.email} placeholder="Email Address" />
+                <Button type="submit" disabled={!this.state.isValid || this.state.submitting} block>
                     {this.state.submitting ?  'submitting...' : 'submit'}
                 </Button>
                 {(() => {
