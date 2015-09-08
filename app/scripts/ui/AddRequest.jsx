@@ -33,7 +33,7 @@ var ImageInput = React.createClass({
         }
         qwest.post(config.apiBase + '/canrequests/image/', formData, null, (xhr) => {
             xhr.upload.onprogress = (e) => {
-                this.setState({ progress: (e.loaded / e.total) * 100 });
+                this.setState({ progress: Math.round((e.loaded / e.total) * 100) });
             };
         })
             .then((xhr, data) => {
