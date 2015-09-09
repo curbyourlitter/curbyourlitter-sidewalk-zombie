@@ -3718,12 +3718,10 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   }
 }
 html,
-body {
+body,
+#app {
   height: 100%;
   width: 100%;
-}
-#app {
-  padding-top: 50px;
 }
 header {
   background: lightgray;
@@ -3742,6 +3740,9 @@ header h1 {
 header .cancel {
   color: black;
   float: right;
+}
+.add-request {
+  padding-top: 50px;
 }
 .add-request-form {
   padding: 25px;
@@ -3799,4 +3800,11 @@ header .cancel {
 .location-input-message {
   font-weight: bold;
   margin: 5px 0;
+}
+.success {
+  background: lightgray;
+  height: 100%;
+  padding: 25px;
+  text-align: center;
+  width: 100%;
 }
