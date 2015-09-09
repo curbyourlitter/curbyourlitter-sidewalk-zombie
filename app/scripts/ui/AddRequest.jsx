@@ -1,7 +1,7 @@
 import _ from 'underscore';
 import React from 'react';
 import { Alert, Button, Col, Grid, Input, Row } from 'react-bootstrap';
-import { Link } from 'react-router';
+import { Navigation } from 'react-router';
 import qwest from 'qwest';
 
 import config from '../config/config';
@@ -247,6 +247,8 @@ var LocationInput = React.createClass({
 });
 
 export var AddRequest = React.createClass({
+    mixins: [Navigation],
+
     getInitialState: function () {
         return {
             pk: null,
@@ -338,6 +340,7 @@ export var AddRequest = React.createClass({
                             submitting: false,
                             success: true 
                         });
+                        this.transitionTo('/success');
                     }
                 })
                 .catch(() => {
@@ -347,39 +350,45 @@ export var AddRequest = React.createClass({
     },
 
     render: function () {
+        // TODO clear error on re-submit
         return (
-            <form className="add-request-form" onSubmit={this.submitRequest}>
-                <ImageInput label="Photo"
-                    onChangeCallback={(image) => this.updateField('image', image)} 
-                    onLocation={(latlng) => this.updateField('latlng', latlng)} 
-                    onPk={(pk) => this.updateField('pk', pk)} />
-                <LocationInput onLocationChange={(l) => this.updateField('latlng', l)} latlng={this.state.latlng} />
-                <Input type="select" onChange={(e) => this.updateField('type', e.target.value)} label="What do you think would help?" value={this.state.type}>
-                    <option value="trash">Add a litter basket</option>
-                    <option value="recycling_plastic">Add a plastic recycling bin</option>
-                    <option value="recycling_metal">Add a metal recycling bin</option>
-                    <option value="bigbelly">Add a bigbelly</option>
-                    <option value="bigbelly_plastic">Add a bigbelly plastic recycling bin</option>
-                    <option value="bigbelly_metal">Add a bigbelly metal recycling bin</option>
-                    <option value="other">Other</option>
-                </Input>
-                <Input type="textarea" onChange={(e) => this.updateField('comment', e.target.value)} value={this.state.comment} label="Comment (optional)" />
-                <Input type="text" onChange={(e) => this.updateField('name', e.target.value)} label="Name" value={this.state.name} placeholder="Name" />
-                <Input type="email" onChange={(e) => this.updateField('email', e.target.value)} label="Email Address" value={this.state.email} placeholder="Email Address" />
-                <Button type="submit" disabled={!this.state.isValid || this.state.submitting} block>
-                    {this.state.submitting ?  'submitting...' : 'submit'}
-                    // TODO thank you message on successful submission
-                </Button>
-                {(() => {
-                    if (this.state.error) {
-                        return (
-                            <Alert bsStyle="danger">
-                                There was an error while submitting the request, please try again and let us know if the error persists.
-                            </Alert>
-                        );
-                    }
-                })()}
-            </form>
+            <div className="add-request">
+                <header>
+                    <h1>Do you see litter?</h1>
+                    <a href="#" className="cancel">Cancel</a>
+                </header>
+                <form className="add-request-form" onSubmit={this.submitRequest}>
+                    <ImageInput label="Photo"
+                        onChangeCallback={(image) => this.updateField('image', image)} 
+                        onLocation={(latlng) => this.updateField('latlng', latlng)} 
+                        onPk={(pk) => this.updateField('pk', pk)} />
+                    <LocationInput onLocationChange={(l) => this.updateField('latlng', l)} latlng={this.state.latlng} />
+                    <Input type="select" onChange={(e) => this.updateField('type', e.target.value)} label="What do you think would help?" value={this.state.type}>
+                        <option value="trash">Add a litter basket</option>
+                        <option value="recycling_plastic">Add a plastic recycling bin</option>
+                        <option value="recycling_metal">Add a metal recycling bin</option>
+                        <option value="bigbelly">Add a bigbelly</option>
+                        <option value="bigbelly_plastic">Add a bigbelly plastic recycling bin</option>
+                        <option value="bigbelly_metal">Add a bigbelly metal recycling bin</option>
+                        <option value="other">Other</option>
+                    </Input>
+                    <Input type="textarea" onChange={(e) => this.updateField('comment', e.target.value)} value={this.state.comment} label="Comment (optional)" />
+                    <Input type="text" onChange={(e) => this.updateField('name', e.target.value)} label="Name" value={this.state.name} placeholder="Name" />
+                    <Input type="email" onChange={(e) => this.updateField('email', e.target.value)} label="Email Address" value={this.state.email} placeholder="Email Address" />
+                    <Button type="submit" disabled={!this.state.isValid || this.state.submitting} block>
+                        {this.state.submitting ?  'submitting...' : 'submit'}
+                    </Button>
+                    {(() => {
+                        if (this.state.error) {
+                            return (
+                                <Alert bsStyle="danger">
+                                    There was an error while submitting the request, please try again and let us know if the error persists.
+                                </Alert>
+                            );
+                        }
+                    })()}
+                </form>
+            </div>
         );
     }
 });

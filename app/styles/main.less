@@ -1,13 +1,10 @@
 @import "bootstrap";
 
 html,
-body {
+body,
+#app {
     height: 100%;
     width: 100%;
-}
-
-#app {
-    padding-top: 50px;
 }
 
 header {
@@ -29,6 +26,10 @@ header {
         color: black;
         float: right;
     }
+}
+
+.add-request {
+    padding-top: 50px;
 }
 
 .add-request-form {
@@ -77,4 +78,12 @@ header {
         font-weight: bold;
         margin: 5px 0;
     }
+}
+
+.success {
+    background: lightgray;
+    height: 100%;
+    padding: 25px;
+    text-align: center;
+    width: 100%;
 }
