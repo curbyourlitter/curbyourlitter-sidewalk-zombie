@@ -131,7 +131,10 @@ var LocationInput = React.createClass({
     },
 
     getLocation: function () {
-        this.setState({ gettingLocation: true });
+        this.setState({
+            error: null,
+            gettingLocation: true
+        });
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 this.setState({
@@ -152,6 +155,7 @@ var LocationInput = React.createClass({
     submitAddress: function () {
         this.setState({
             enterAddress: false,
+            error: null,
             gettingLocation: true
         });
         var geocoder = new google.maps.Geocoder,
