@@ -272,7 +272,7 @@ export var AddRequest = React.createClass({
     },
 
     getGeom: function () {
-        return `POINT (${this.state.latlng[0]} ${this.state.latlng[1]})`;
+        return `POINT (${this.state.latlng[1]} ${this.state.latlng[0]})`;
     },
 
     getType: function () {
@@ -368,6 +368,7 @@ export var AddRequest = React.createClass({
                 <Input type="email" onChange={(e) => this.updateField('email', e.target.value)} label="Email Address" value={this.state.email} placeholder="Email Address" />
                 <Button type="submit" disabled={!this.state.isValid || this.state.submitting} block>
                     {this.state.submitting ?  'submitting...' : 'submit'}
+                    // TODO thank you message on successful submission
                 </Button>
                 {(() => {
                     if (this.state.error) {
