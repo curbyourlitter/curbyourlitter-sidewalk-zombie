@@ -22,6 +22,7 @@ var ImageInput = React.createClass({
         // When the image is set, try to upload it
         var file = e.target.files[0];
         this.setState({
+            error: null,
             submitting: true,
             value: e.target.value
         });
@@ -350,7 +351,6 @@ export var AddRequest = React.createClass({
     },
 
     render: function () {
-        // TODO clear error on re-submit
         return (
             <div className="add-request">
                 <header>
