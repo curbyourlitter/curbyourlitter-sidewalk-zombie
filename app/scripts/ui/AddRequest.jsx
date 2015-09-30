@@ -410,9 +410,6 @@ export var AddRequest = React.createClass({
                     <Input type="textarea" className="comment" onChange={(e) => this.updateField('comment', e.target.value)} value={this.state.comment} placeholder="Write something here..." />
                     <Input type="text" onChange={(e) => this.updateField('name', e.target.value)} label="Name" value={this.state.name} placeholder="Name" />
                     <Input type="email" onChange={(e) => this.updateField('email', e.target.value)} label="Email Address" value={this.state.email} placeholder="Email Address" />
-                    <Button type="submit" disabled={!this.state.isValid || this.state.submitting} block>
-                        {this.state.submitting ?  'Submitting...' : 'Submit'}
-                    </Button>
                     {(() => {
                         if (this.state.error) {
                             return (
@@ -422,6 +419,9 @@ export var AddRequest = React.createClass({
                             );
                         }
                     })()}
+                    <Button type="submit" disabled={!this.state.isValid || this.state.submitting} block>
+                        {this.state.submitting ?  'Submitting...' : 'Submit'}
+                    </Button>
                 </form>
             </div>
         );
