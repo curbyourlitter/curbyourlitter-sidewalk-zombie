@@ -227,8 +227,7 @@ var LocationInput = React.createClass({
             message = 'Help us find where the trash is.';
             body = (
                 <div>
-                    <Button onClick={this.getLocation}>Share your location</Button>
-                    <Button onClick={() => this.setState({ enterAddress: true })}>Enter an address</Button>
+                    <Button className="btn-share" onClick={this.getLocation}>Share your location</Button>
                 </div>
             );
         }
@@ -239,14 +238,20 @@ var LocationInput = React.createClass({
             else if (this.state.useFoundLocation === null) {
                 message = 'Hey, we found location data in your photo, can we use it to place it on the map?';
                 body = (
-                    <div>
-                        <Button onClick={() => this.setState({ useFoundLocation: true })}>
-                            Yes
-                        </Button>
-                        <Button onClick={() => this.setState({ enterAddress: true })}>
-                            No, I'll Add It Below
-                        </Button>
-                    </div>
+                    <Grid className="use-found-location">
+                        <Row>
+                            <Col className="column-yes" xs={3}>
+                                <Button onClick={() => this.setState({ useFoundLocation: true })}>
+                                    Yes
+                                </Button>
+                            </Col>
+                            <Col className="column-no" xs={9}>
+                                <Button onClick={() => this.setState({ enterAddress: true })}>
+                                    No, I'll Add It Below
+                                </Button>
+                            </Col>
+                        </Row>
+                    </Grid>
                 );
             }
             else if (this.state.useFoundLocation === true) {
@@ -406,7 +411,7 @@ export var AddRequest = React.createClass({
                     <Input type="text" onChange={(e) => this.updateField('name', e.target.value)} label="Name" value={this.state.name} placeholder="Name" />
                     <Input type="email" onChange={(e) => this.updateField('email', e.target.value)} label="Email Address" value={this.state.email} placeholder="Email Address" />
                     <Button type="submit" disabled={!this.state.isValid || this.state.submitting} block>
-                        {this.state.submitting ?  'submitting...' : 'submit'}
+                        {this.state.submitting ?  'Submitting...' : 'Submit'}
                     </Button>
                     {(() => {
                         if (this.state.error) {

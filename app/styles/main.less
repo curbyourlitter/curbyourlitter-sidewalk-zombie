@@ -36,6 +36,10 @@ header {
     }
 }
 
+button {
+    height: 60px;
+}
+
 .add-request {
     padding-top: 50px;
 }
@@ -115,13 +119,31 @@ header {
 }
 
 .location-input {
-    margin: 20px auto;
     text-align: center;
-    width: 80%;
+    margin: 20px auto;
+    width: 100%;
 
     &-message {
         font-weight: bold;
-        margin: 5px 0;
+        margin: 10px auto;
+        width: 80%;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    .btn-share {
+        width: 80%;
+    }
+
+    .use-found-location {
+        .column-no {
+            padding-right: 0;
+        }
+        .column-yes {
+            padding-left: 0;
+        }
     }
 }
 
