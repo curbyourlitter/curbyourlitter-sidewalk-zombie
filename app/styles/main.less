@@ -1,17 +1,21 @@
 @import "bootstrap";
+@import "variables";
 
 html,
 body,
 #app {
+    color: @blue;
     height: 100%;
     width: 100%;
 }
 
 header {
-    background: lightgray;
+    background: @blue;
+    color: white;
     height: 50px;
     padding: 15px 25px;
     position: fixed;
+    text-transform: uppercase;
     top: 0;
     width: 100%;
     z-index: 10000;
@@ -23,7 +27,7 @@ header {
     }
 
     .cancel {
-        color: black;
+        color: white;
         float: right;
     }
 }
@@ -43,7 +47,7 @@ header {
 .image-input {
     &-thumbnail {
         .make-xs-column(3, 0);
-        background: gray;
+        background: @blue-light-light;
         height: 75px;
         width: 75px;
 
