@@ -5,11 +5,16 @@ import { Link } from 'react-router';
 export var Success = React.createClass({
     render: function () {
         return (
-            <div className="success">
-                <h1>Thank you!</h1>
-                <p>Your image has been added!</p>
-                <p>Visit curbyourlitter.org on a desktop to see the map!</p>
-                <Link to="/" className="btn btn-default btn-block">Done</Link>
+            <div>
+                <header>
+                    <h1>Success!</h1>
+                    <a href="#" className="cancel">Done</a>
+                </header>
+                <div className="success">
+                    <div className="thanks">Thanks!</div>
+                    <p>Your image has been added!</p>
+                    <p>Visit curbyourlitter.org on a desktop computer to see it on the map!</p>
+                </div>
             </div>
         );
     }
