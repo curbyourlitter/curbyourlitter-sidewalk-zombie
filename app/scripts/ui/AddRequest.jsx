@@ -82,19 +82,22 @@ var ImageInput = React.createClass({
                             return (
                                 <Col xs={9}>
                                     <Row>
-                                        <div className="image-input-message">
+                                        <div className="image-input-status">
                                             <div>
-                                                {this.state.submitting ? 'uploading...' : ''}
-                                                {this.state.submitted ? 'uploaded' : ''}
-                                            </div>
-                                            <div>
-                                                {this.state.progress}%
+                                                {this.state.submitting ? 'Uploading...' : ''}
+                                                {this.state.submitted ? 'Uploaded' : ''}
                                             </div>
                                         </div>
                                         <div className="image-input-actions">
-                                            <a onClick={this.clear}>remove</a>
+                                            <a onClick={this.clear}>
+                                                {this.state.submitting ? 'Cancel' : ''}
+                                                {this.state.submitted ? 'Remove' : ''}
+                                            </a>
                                         </div>
                                     </Row>
+                                    <div className="image-input-message">
+                                        {this.state.progress === 100 ? 'All done. Success!' : `${this.state.progress}%`}
+                                    </div>
                                 </Col>
                             );
                         }
@@ -113,6 +116,24 @@ var ImageInput = React.createClass({
 
                 </Row>
             </Grid>
+        );
+    }
+});
+
+var BinTypeRadio = React.createClass({
+    render: function () {
+        var selected = this.props.value === this.props.selected,
+            inputClasses = 'bin-type-input';
+        if (selected) inputClasses += ' active';
+        return (
+            <div className="bin-type-radio">
+                <input ref="input" type="radio" name="bin-type" onChange={this.props.onSelect} checked={selected} value={this.props.value} id={this.props.value}></input>
+                <span className={inputClasses}>
+                    <span></span>
+                </span>
+                <label htmlFor={this.props.value}>{this.props.label}</label>
+                <div className="clearfix"></div>
+            </div>
         );
     }
 });
@@ -354,6 +375,10 @@ export var AddRequest = React.createClass({
         }
     },
 
+    onTypeSelected: function (e) {
+        this.updateField('type', e.target.value);
+    },
+
     render: function () {
         return (
             <div className="add-request">
@@ -367,16 +392,17 @@ export var AddRequest = React.createClass({
                         onLocation={(latlng) => this.updateField('latlng', latlng)} 
                         onPk={(pk) => this.updateField('pk', pk)} />
                     <LocationInput onLocationChange={(l) => this.updateField('latlng', l)} latlng={this.state.latlng} />
-                    <Input type="select" onChange={(e) => this.updateField('type', e.target.value)} label="What do you think would help?" value={this.state.type}>
-                        <option value="trash">Add a litter basket</option>
-                        <option value="recycling_plastic">Add a plastic recycling bin</option>
-                        <option value="recycling_metal">Add a metal recycling bin</option>
-                        <option value="bigbelly">Add a bigbelly</option>
-                        <option value="bigbelly_plastic">Add a bigbelly plastic recycling bin</option>
-                        <option value="bigbelly_metal">Add a bigbelly metal recycling bin</option>
-                        <option value="other">Other</option>
-                    </Input>
-                    <Input type="textarea" onChange={(e) => this.updateField('comment', e.target.value)} value={this.state.comment} label="Comment (optional)" />
+                    <div>
+                        <label>What do you think would help?</label>
+                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Litter Bin" value="litter"/>
+                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Bottle & Can Recycling Bin" value="recycling_plastic"/>
+                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Paper Recycling Bin" value="recycling_paper"/>
+                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="BigBelly" value="bigbelly"/>
+                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Bottle & Can Recycling BigBelly" value="bigbelly_plastic"/>
+                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Paper Recycling BigBelly" value="bigbelly_paper"/>
+                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Other" value="other"/>
+                    </div>
+                    <Input type="textarea" className="comment" onChange={(e) => this.updateField('comment', e.target.value)} value={this.state.comment} placeholder="Write something here..." />
                     <Input type="text" onChange={(e) => this.updateField('name', e.target.value)} label="Name" value={this.state.name} placeholder="Name" />
                     <Input type="email" onChange={(e) => this.updateField('email', e.target.value)} label="Email Address" value={this.state.email} placeholder="Email Address" />
                     <Button type="submit" disabled={!this.state.isValid || this.state.submitting} block>

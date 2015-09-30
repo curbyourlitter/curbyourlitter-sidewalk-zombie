@@ -7,6 +7,8 @@ body,
 #app {
     color: @blue;
     font-family: @semibold-font-family;
+    font-style: normal;
+    font-weight: normal;
     height: 100%;
     width: 100%;
 }
@@ -69,14 +71,47 @@ header {
     }
 
     &-message {
+        margin-top: 15px;
+    }
+
+    &-status {
         .make-xs-column(6);
+        color: gray;
         display: inline-block;
     }
 
     &-actions {
         .make-xs-column(6);
         display: inline-block;
+        padding-right: 0;
+        text-align: right;
+
+        a {
+            color: red;
+        }
     }
+}
+
+.bin-type-radio {
+    input {
+        display: none;
+    }
+
+    .bin-type-input {
+        .radio();
+        float: left;
+    }
+
+    label {
+        float: left;
+        line-height: 35px;
+        margin-left: 15px;
+    }
+}
+
+.comment {
+    margin-left: 10%;
+    width: 90%;
 }
 
 .location-input {
@@ -91,7 +126,7 @@ header {
 }
 
 .success {
-    background: lightgray;
+    background: white;
     height: 100%;
     padding: 25px;
     text-align: center;
