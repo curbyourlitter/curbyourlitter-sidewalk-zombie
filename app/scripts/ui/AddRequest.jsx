@@ -128,10 +128,12 @@ var BinTypeRadio = React.createClass({
         return (
             <div className="bin-type-radio">
                 <input ref="input" type="radio" name="bin-type" onChange={this.props.onSelect} checked={selected} value={this.props.value} id={this.props.value}></input>
-                <span className={inputClasses}>
-                    <span></span>
-                </span>
-                <label htmlFor={this.props.value}>{this.props.label}</label>
+                <label htmlFor={this.props.value}>
+                    <span className={inputClasses}>
+                        <span></span>
+                    </span>
+                    <span className="bin-type-radio-label">{this.props.label}</span>
+                </label>
                 <div className="clearfix"></div>
             </div>
         );
