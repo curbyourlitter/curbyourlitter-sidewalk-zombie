@@ -244,7 +244,7 @@ var LocationInput = React.createClass({
                             Yes
                         </Button>
                         <Button onClick={() => this.setState({ enterAddress: true })}>
-                            No, I'll do it
+                            No, I'll Add It Below
                         </Button>
                     </div>
                 );
