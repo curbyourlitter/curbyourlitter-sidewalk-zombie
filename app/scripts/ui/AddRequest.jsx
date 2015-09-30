@@ -335,25 +335,17 @@ export var AddRequest = React.createClass({
 
     getType: function () {
         var type = this.state.type;
-        if (type === 'trash') {
-            return 'trash';
+        if (type === 'litter') {
+            return 'litter';
         }
         else if (type.indexOf('recycling') === 0) {
             return 'recycling';
-        }
-        else if (type.indexOf('bigbelly') === 0) {
-            return 'bigbelly';
         }
     },
 
     getSubType: function () {
         var type = this.state.type;
-        if (type.indexOf('plastic') > 0) {
-            return 'plastic';
-        }
-        else if (type.indexOf('metal') > 0) {
-            return 'metal';
-        }
+        return type.substr(type.indexOf('_') + 1);
     },
 
     validateRequest: function (fields) {
@@ -368,7 +360,7 @@ export var AddRequest = React.createClass({
             var data = {
                     email: this.state.email,
                     geom: this.getGeom(),
-                    name: this.state.name
+                    name: this.state.name,
                     mailing_list_opt_in: this.state.mailingListOptIn
                 },
                 canType = this.getType(),
@@ -425,12 +417,12 @@ export var AddRequest = React.createClass({
                     <LocationInput onLocationChange={(l) => this.updateField('latlng', l)} latlng={this.state.latlng} />
                     <div>
                         <label>What do you think would help?</label>
-                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Litter Bin" value="litter"/>
-                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Bottle & Can Recycling Bin" value="recycling_plastic"/>
-                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Paper Recycling Bin" value="recycling_paper"/>
-                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="BigBelly" value="bigbelly"/>
-                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Bottle & Can Recycling BigBelly" value="bigbelly_plastic"/>
-                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Paper Recycling BigBelly" value="bigbelly_paper"/>
+                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Litter Bin" value="litter_standard"/>
+                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Bottle & Can Recycling Bin" value="recycling_standard_bottle_can"/>
+                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Paper Recycling Bin" value="recycling_standard_paper"/>
+                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="BigBelly" value="litter_bigbelly"/>
+                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Bottle & Can Recycling BigBelly" value="recycling_bigbelly_bottle_can"/>
+                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Paper Recycling BigBelly" value="recycling_bigbelly_paper"/>
                         <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Other" value="other"/>
                     </div>
                     <Input type="textarea" className="comment" onChange={(e) => this.updateField('comment', e.target.value)} value={this.state.comment} placeholder="Write something here..." />
