@@ -138,6 +138,28 @@ var BinTypeRadio = React.createClass({
     }
 });
 
+var MailingListOptIn = React.createClass({
+    handleClick: function (e) {
+        this.props.onChange(!this.props.value);
+        e.preventDefault();
+    },
+
+    render: function () {
+        var inputClasses = 'mailing-list-opt-in-input';
+        if (this.props.value) inputClasses += ' active';
+        return (
+            <div className="mailing-list-opt-in-radio" onClick={this.handleClick}>
+                <input ref="input" type="checkbox" onChange={e => {}} checked={this.props.value} id="mailing-list-opt-in"></input>
+                <span className={inputClasses}>
+                    <span></span>
+                </span>
+                <label htmlFor="mailing-list-opt-in">I want to be added to the mailing list</label>
+                <div className="clearfix"></div>
+            </div>
+        );
+    }
+});
+
 var LocationInput = React.createClass({
     getInitialState: function () {
         return {
@@ -288,6 +310,7 @@ export var AddRequest = React.createClass({
             comment: null,
             name: null,
             email: null,
+            mailingListOptIn: false,
 
             error: false,
             isValid: false,
@@ -419,6 +442,7 @@ export var AddRequest = React.createClass({
                             );
                         }
                     })()}
+                    <MailingListOptIn onChange={value => this.updateField('mailingListOptIn', value)} value={this.state.mailingListOptIn}/>
                     <Button type="submit" disabled={!this.state.isValid || this.state.submitting} block>
                         {this.state.submitting ?  'Submitting...' : 'Submit'}
                     </Button>

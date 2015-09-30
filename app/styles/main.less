@@ -38,6 +38,10 @@ header {
 
 button {
     height: 60px;
+
+    &[type=submit] {
+        margin-top: 25px;
+    }
 }
 
 .add-request {
@@ -102,6 +106,23 @@ button {
     }
 
     .bin-type-input {
+        .radio();
+        float: left;
+    }
+
+    label {
+        float: left;
+        line-height: 35px;
+        margin-left: 15px;
+    }
+}
+
+.mailing-list-opt-in-radio {
+    input {
+        display: none;
+    }
+
+    .mailing-list-opt-in-input {
         .radio();
         float: left;
     }
