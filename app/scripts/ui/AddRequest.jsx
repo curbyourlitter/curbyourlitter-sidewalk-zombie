@@ -369,6 +369,7 @@ export var AddRequest = React.createClass({
                     email: this.state.email,
                     geom: this.getGeom(),
                     name: this.state.name
+                    mailing_list_opt_in: this.state.mailingListOptIn
                 },
                 canType = this.getType(),
                 canSubType = this.getSubType();
