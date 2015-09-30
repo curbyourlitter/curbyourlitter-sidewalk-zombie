@@ -8,7 +8,7 @@ export var Success = React.createClass({
             <div>
                 <header>
                     <h1>Success!</h1>
-                    <a href="#" className="cancel">Done</a>
+                    <Link to="/" className="cancel">Done</Link>
                 </header>
                 <div className="success">
                     <div className="thanks">Thanks!</div>
