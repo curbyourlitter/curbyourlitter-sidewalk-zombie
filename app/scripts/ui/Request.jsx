@@ -1,5 +1,4 @@
 import _ from 'underscore';
-import config from '../config/config';
 import moment from 'moment';
 import React from 'react';
 import { History } from 'react-router';
@@ -7,6 +6,8 @@ import { Col, Grid, Row } from 'react-bootstrap';
 
 import { getRequestColumnsDetails } from 'curbyourlitter-sql/lib/requests';
 
+import config from '../config/config';
+import { NavHeader } from './NavHeader.jsx';
 import { detailPanel } from './Panel.jsx';
 
 export var Request = detailPanel(React.createClass({
@@ -25,44 +26,49 @@ export var Request = detailPanel(React.createClass({
     },
 
     render: function () {
-        var iconClasses = 'detail-panel-request-icon';
+        var iconClasses = 'detail-panel-icon detail-panel-request-icon';
         if (!this.props.can_type) {
             iconClasses += ' detail-panel-request-icon-litter-sighting';
         }
         return (
-            <div className="detail-panel-request">
-                {this.props.image ? <img src={this.props.image} /> : ''}
-                <h2>
-                    <span className={iconClasses}></span>
-                    <span className="detail-panel-request-header">
-                        {this.props.can_type ? `${this.props.can_type} bin request` : 'litter sighting'}
-                    </span>
-                    <span className="clearfix"></span>
-                </h2>
-                {(() => {
-                    if (this.props.can_type) {
-                        return (
-                            <div className="detail-panel-row">
-                                <label>type</label>
-                                <div>{this.getSubtypeDisplay()}</div>
-                            </div>
-                        );
-                    }
-                })()}
-                <div className="detail-panel-row">
-                    <label>{ this.props.can_type ? 'requested' : 'taken' }</label>
-                    <div>{moment(this.props.date).format('MMMM D, YYYY')}</div>
+            <div>
+                <NavHeader/>
+                <div className="detail-panel-request">
+                    {this.props.image ? <img src={this.props.image} /> : ''}
+                    <h2 className="detail-panel-header">
+                        <span className={iconClasses}></span>
+                        <span className="detail-panel-request-header">
+                            {this.props.can_type ? `${this.props.can_type} bin request` : 'litter sighting'}
+                        </span>
+                        <span className="clearfix"></span>
+                    </h2>
+                    <div className="detail-panel-body">
+                        {(() => {
+                            if (this.props.can_type) {
+                                return (
+                                    <div className="detail-panel-row">
+                                        <label>type</label>
+                                        <div>{this.getSubtypeDisplay()}</div>
+                                    </div>
+                                );
+                            }
+                        })()}
+                        <div className="detail-panel-row">
+                            <label>{ this.props.can_type ? 'requested' : 'taken' }</label>
+                            <div>{moment(this.props.date).format('MMMM D, YYYY')}</div>
+                        </div>
+                        {(() => {
+                            if (this.props.comment) {
+                                return (
+                                    <div className="detail-panel-row">
+                                        <label>comment</label>
+                                        <div>{this.props.comment}</div>
+                                    </div>
+                                );
+                            }
+                        })()}
+                    </div>
                 </div>
-                {(() => {
-                    if (this.props.comment) {
-                        return (
-                            <div className="detail-panel-row">
-                                <label>comment</label>
-                                <div>{this.props.comment}</div>
-                            </div>
-                        );
-                    }
-                })()}
             </div>
         );
     }

@@ -1,0 +1,54 @@
+@import "variables";
+
+@panel-padding: 15px;
+
+.panel-header {
+    padding: @panel-padding;
+}
+
+.panel-close {
+    color: @blue;
+    text-transform: uppercase;
+}
+
+.detail-panel {
+    margin-top: @header-height;
+
+    img {
+        max-width: ~"calc(100% - @{panel-padding} * 2)";
+        margin: 0 @panel-padding;
+        margin-bottom: 15px;
+    }
+
+    &-header {
+        line-height: 50px;
+        margin-top: 0;
+    }
+
+    &-icon {
+        height: 60px;
+        margin-left: @panel-padding;
+        width: 60px;
+    }
+
+    &-body {
+        padding: 15px;
+    }
+}
+
+.detail-panel-row {
+    margin-bottom: 15px;
+    margin-top: 15px;
+
+    &:first-of-type {
+        margin-top: 0;
+    }
+
+    label {
+        font-family: @book-font-family;
+        font-size: 14px;
+        font-weight: normal;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+}

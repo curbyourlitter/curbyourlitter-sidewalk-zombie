@@ -15,7 +15,7 @@ export var Panel = React.createClass({
         return (
             <div className={className}>
                 <div className="panel-header">
-                    <Link to="/" aria-label="close" className="panel-close">&rarr; back to list</Link>
+                    <Link to="/" aria-label="close" className="panel-close">&lt; back to list</Link>
                 </div>
                 <div className="panel-body" onScroll={this.props.onBodyScroll}>
                     {this.props.children}
@@ -32,7 +32,7 @@ export var detailPanel = function (Component, table, columns, className = 'detai
         },
 
         updateData: function (id) {
-            this.getData(id, (data) => this.setState(data));
+            this.getData(id, data => this.setState(data[0]));
         },
 
         componentDidMount: function () {

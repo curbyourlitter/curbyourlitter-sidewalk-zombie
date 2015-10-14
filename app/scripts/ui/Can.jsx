@@ -5,6 +5,7 @@ import { Col, Grid, Row } from 'react-bootstrap';
 import { getCanColumnsDetails } from 'curbyourlitter-sql/lib/cans';
 
 import config from '../config/config';
+import { NavHeader } from './NavHeader.jsx';
 import { detailPanel } from './Panel.jsx';
 
 export var slugifyCanType = function (canType) {
@@ -13,20 +14,22 @@ export var slugifyCanType = function (canType) {
 
 export var Can = detailPanel(React.createClass({
     render: function () {
-        var iconClasses = 'detail-panel-can-icon';
-        if (this.props.complaint_type) {
-            iconClasses += ` detail-panel-can-icon-${slugifyCanType(this.props.cantype)}`;
-        }
+        var iconClasses = 'detail-panel-icon detail-panel-can-icon';
         return (
-            <div className="detail-panel-can">
-                <h2>
-                    <span className={iconClasses}></span>
-                    <span className="detail-panel-can-header">Existing Bin</span>
-                    <span className="clearfix"></span>
-                </h2>
-                <div className="detail-panel-row">
-                    <label>Type</label>
-                    <div>{this.props.cantype}</div>
+            <div>
+                <NavHeader/>
+                <div className="detail-panel-can">
+                    <h2 className="detail-panel-header">
+                        <span className={iconClasses}></span>
+                        <span className="detail-panel-can-header">Existing Bin</span>
+                        <span className="clearfix"></span>
+                    </h2>
+                    <div className="detail-panel-body">
+                        <div className="detail-panel-row">
+                            <label>Type</label>
+                            <div>{this.props.cantype}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
@@ -43,9 +46,6 @@ export var CanListItem = React.createClass({
     render: function () {
         var itemClasses = 'can-list-item entity-list-item',
             iconClasses = 'entity-list-item-icon can-list-item-icon';
-        if (this.props.complaint_type) {
-            iconClasses += ` can-list-item-icon-${slugifyCanType(this.props.type)}`;
-        }
         return (
             <li className={itemClasses} onClick={this.handleClick}>
                 <Grid>
