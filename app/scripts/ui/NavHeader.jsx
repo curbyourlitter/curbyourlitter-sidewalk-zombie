@@ -14,10 +14,10 @@ export var NavHeader = React.createClass({
                 </div>
                 <Navbar fixedTop toggleNavKey={0}>
                     <Nav eventKey={0}>
-                        <NavItem>The Problem</NavItem>
-                        <NavItem>What Can We Do?</NavItem>
-                        <NavItem>News &amp; Events</NavItem>
-                        <NavItem>About</NavItem>
+                        <NavItem href="http://curbyourlitter.org/the-problem/">The Problem</NavItem>
+                        <NavItem href="http://curbyourlitter.org/what-can-we-do/">What Can We Do?</NavItem>
+                        <NavItem href="http://curbyourlitter.org/news-events/">News &amp; Events</NavItem>
+                        <NavItem href="http://curbyourlitter.org/about/">About</NavItem>
                         <NavItem>Map the Trash!</NavItem>
                     </Nav>
                 </Navbar>
