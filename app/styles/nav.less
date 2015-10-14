@@ -1,0 +1,64 @@
+.nav-header {
+    background: white;
+    color: black;
+}
+
+.navbar-brand {
+    margin-left: 0;
+    margin-top: 5px;
+    padding: 0;
+
+    .logo {
+        background-image: data-uri('/images/logo.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        float: left;
+        height: 54px;
+        width: 54px;
+    }
+
+    .brand-text {
+        float: left;
+        margin-left: 15px;
+        margin-top: 5px;
+    }
+
+    .city {
+        font-size: 12px;
+    }
+}
+
+.navbar {
+    border-width: 0;
+    font-size: 18px;
+    font-weight: normal;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    .navbar-nav {
+        background: white;
+        margin: 0;
+        margin-top: 5px;
+    }
+
+    .navbar-collapse {
+        padding: 0;
+    }
+
+    .navbar-toggle {
+        &, &:focus, &:hover {
+            background: none;
+            border: none;
+        }
+
+        .icon-bar {
+            background-color: black;
+            margin-top: 6px;
+            width: 25px;
+        }
+    }
+
+    a {
+        font-size: 20px;
+    }
+}
