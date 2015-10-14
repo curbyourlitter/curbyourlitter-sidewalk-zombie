@@ -34,3 +34,37 @@
         }
     }
 }
+
+.list-overlay {
+    background: fadeout(@blue, 40%);
+    position: absolute;
+    height: 100%;
+    top: @header-height;
+    width: 100%;
+    z-index: 10000;
+
+    &-body {
+        background: white;
+        color: @blue;
+        margin: 50px @panel-padding;
+        padding: @panel-padding;
+
+        &-header {
+            font-size: 35px;
+            text-transform: uppercase;
+        }
+
+        .btn {
+            font-size: 25px;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            padding-left: 20px;
+            padding-right: 20px;
+            text-align: left;
+
+            &-add {
+                padding-top: 10px;
+            }
+        }
+    }
+}

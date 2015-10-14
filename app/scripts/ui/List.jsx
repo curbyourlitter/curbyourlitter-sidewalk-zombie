@@ -18,6 +18,16 @@ var loadingCans = false,
     loadingRequests = false;
 
 export var List = React.createClass({
+    getInitialState: function () {
+        return {
+            overlayShown: true
+        }
+    },
+
+    hideOverlay: function () {
+        this.setState({ overlayShown: false });
+    },
+
     render: function () {
         var list = this.props.items.map(item => {
             if (item.type === 'can') {
@@ -32,6 +42,7 @@ export var List = React.createClass({
         });
         return (
             <div className="list">
+                { this.state.overlayShown ? <ListOverlay hide={this.hideOverlay} /> : '' }
                 <NavHeader/>
                 <div className="list-body">
                     <h2>
@@ -40,6 +51,29 @@ export var List = React.createClass({
                     <ul className="entity-list">
                         {list}
                     </ul>
+                </div>
+            </div>
+        );
+    }
+});
+
+var ListOverlay = React.createClass({
+    handleListClick: function (e) {
+        e.preventDefault();
+        this.props.hide();
+    },
+
+    render: function () {
+        return (
+            <div className="list-overlay">
+                <div className="list-overlay-body">
+                    <div className="list-overlay-body-header">map the trash</div>
+                    <Link className="btn btn-block btn-default btn-add" to="/add">Do you see litter?</Link>
+                    <Button block onClick={this.handleListClick}>View Data List</Button>
+                    <div className="list-overlay-desktop">
+                        <div><strong>Desktop Version</strong></div>
+                        <div>Visit the site on your computer and check out a more detailed view of the map data.</div>
+                    </div>
                 </div>
             </div>
         );

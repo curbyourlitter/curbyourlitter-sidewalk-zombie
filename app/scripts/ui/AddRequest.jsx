@@ -1,7 +1,7 @@
 import _ from 'underscore';
 import React from 'react';
 import { Alert, Button, Col, Grid, Input, Row } from 'react-bootstrap';
-import { Navigation } from 'react-router';
+import { Link, Navigation } from 'react-router';
 import qwest from 'qwest';
 
 import config from '../config/config';
@@ -407,7 +407,7 @@ export var AddRequest = React.createClass({
             <div className="add-request">
                 <header>
                     <h1>Do you see litter?</h1>
-                    <a href="#" className="cancel">Cancel</a>
+                    <Link className="cancel" to="/">Cancel</Link>
                 </header>
                 <form className="add-request-form" onSubmit={this.submitRequest}>
                     <ImageInput label="Photo"
