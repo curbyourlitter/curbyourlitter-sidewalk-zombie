@@ -3568,9 +3568,12 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 }
 .navbar-brand {
   color: black;
+  left: 15px;
   margin-left: 0;
   margin-top: 5px;
   padding: 0;
+  position: fixed;
+  top: 15px;
   z-index: 5000;
 }
 .navbar-brand .logo {
@@ -3590,9 +3593,11 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   font-size: 12px;
 }
 .navbar {
+  background: white;
   border-width: 0;
   font-size: 18px;
   font-weight: normal;
+  height: 85px;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
