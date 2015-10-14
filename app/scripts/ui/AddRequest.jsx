@@ -1,7 +1,7 @@
 import _ from 'underscore';
 import React from 'react';
 import { Alert, Button, Col, Grid, Input, Row } from 'react-bootstrap';
-import { Link, Navigation } from 'react-router';
+import { History, Link } from 'react-router';
 import qwest from 'qwest';
 
 import config from '../config/config';
@@ -302,7 +302,7 @@ var LocationInput = React.createClass({
 });
 
 export var AddRequest = React.createClass({
-    mixins: [Navigation],
+    mixins: [History],
 
     getInitialState: function () {
         return {
@@ -379,6 +379,7 @@ export var AddRequest = React.createClass({
             qwest.put(config.apiBase + `/canrequests/${this.state.pk}/`, data)
                 .then(() => {
                     if (data.error) {
+                        console.log('apparently there was an error?',data.error);
                         this.setState({
                             error: true,
                             submitting: false
@@ -389,10 +390,11 @@ export var AddRequest = React.createClass({
                             submitting: false,
                             success: true 
                         });
-                        this.transitionTo('/success');
+                        this.history.pushState(null, '/success');
                     }
                 })
                 .catch(() => {
+                    console.log('error');
                     this.setState({ error: true });
                 });
         }
