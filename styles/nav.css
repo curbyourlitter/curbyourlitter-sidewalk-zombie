@@ -1,0 +1,56 @@
+.nav-header {
+  background: white;
+  color: black;
+  height: inherit;
+  padding: 15px;
+}
+.navbar-brand {
+  margin-left: 0;
+  margin-top: 5px;
+  padding: 0;
+}
+.navbar-brand .logo {
+  background-image: url('/images/logo.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  float: left;
+  height: 54px;
+  width: 54px;
+}
+.navbar-brand .brand-text {
+  float: left;
+  margin-left: 15px;
+  margin-top: 5px;
+}
+.navbar-brand .city {
+  font-size: 12px;
+}
+.navbar {
+  border-width: 0;
+  font-size: 18px;
+  font-weight: normal;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.navbar .navbar-nav {
+  background: white;
+  margin: 0;
+  margin-top: 5px;
+}
+.navbar .navbar-collapse {
+  padding: 0;
+}
+.navbar .navbar-toggle,
+.navbar .navbar-toggle:focus,
+.navbar .navbar-toggle:hover {
+  background: none;
+  border: none;
+}
+.navbar .navbar-toggle .icon-bar {
+  background-color: black;
+  margin-top: 6px;
+  width: 25px;
+}
+.navbar a {
+  font-size: 20px;
+}

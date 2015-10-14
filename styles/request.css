@@ -1,0 +1,10 @@
+.entity-list .request-list-item-can-type {
+  font-size: 18px;
+}
+.entity-list .request-list-item-date {
+  font-size: 14px;
+}
+.detail-panel .detail-panel-request-icon,
+.detail-panel .detail-panel-request-icon-litter-sighting {
+  margin-top: 0;
+}

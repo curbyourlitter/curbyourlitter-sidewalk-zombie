@@ -221,3 +221,44 @@
   height: 50px;
   width: 50px;
 }
+.panel-header {
+  padding: 15px;
+}
+.panel-close {
+  color: #5194ff;
+  text-transform: uppercase;
+}
+.detail-panel {
+  margin-top: 85px;
+}
+.detail-panel img {
+  max-width: calc(100% - 15px * 2);
+  margin: 0 15px;
+  margin-bottom: 15px;
+}
+.detail-panel-header {
+  line-height: 50px;
+  margin-top: 0;
+}
+.detail-panel-icon {
+  height: 60px;
+  margin-left: 15px;
+  width: 60px;
+}
+.detail-panel-body {
+  padding: 15px;
+}
+.detail-panel-row {
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+.detail-panel-row:first-of-type {
+  margin-top: 0;
+}
+.detail-panel-row label {
+  font-family: 'NationalWeb-Book', sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}

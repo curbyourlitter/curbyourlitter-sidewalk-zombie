@@ -1,3 +1,15 @@
+@font-face {
+  font-family: 'NationalWeb-Book';
+  src: url('../fonts/NationalWeb-Book.eot');
+  /* IE9 Compat Modes */
+  src: url('../fonts/NationalWeb-Book.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../fonts/NationalWeb-Book.woff') format('woff');
+}
+@font-face {
+  font-family: 'NationalWeb-Semibold';
+  src: url('../fonts/NationalWeb-Semibold.eot');
+  /* IE9 Compat Modes */
+  src: url('../fonts/NationalWeb-Semibold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../fonts/NationalWeb-Semibold.woff') format('woff');
+}
 .can-list-item {
   background-color: #ebf0ee;
   color: #688979;
@@ -220,4 +232,61 @@
   background-size: contain;
   height: 50px;
   width: 50px;
+}
+.list-body {
+  padding-top: 85px;
+}
+.list-body h2 {
+  background: #99c0fd;
+  color: white;
+  font-family: 'NationalWeb-Semibold', sans-serif;
+  font-size: 16px;
+  margin: 0;
+  padding: 5px 25px;
+  text-transform: uppercase;
+}
+.list-body .entity-list {
+  list-style: none;
+  padding: 0;
+}
+.list-body .entity-list-item {
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+.list-body .entity-list-item .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+.list-body .entity-list-item-icon {
+  height: 40px;
+  width: 40px;
+}
+.list-overlay {
+  background: rgba(81, 148, 255, 0.6);
+  position: absolute;
+  height: 100%;
+  top: 85px;
+  width: 100%;
+  z-index: 10000;
+}
+.list-overlay-body {
+  background: white;
+  color: #5194ff;
+  margin: 50px 15px;
+  padding: 15px;
+}
+.list-overlay-body-header {
+  font-size: 35px;
+  text-transform: uppercase;
+}
+.list-overlay-body .btn {
+  font-size: 25px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: left;
+}
+.list-overlay-body .btn-add {
+  padding-top: 10px;
 }
