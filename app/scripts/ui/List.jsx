@@ -93,7 +93,6 @@ export var ListContainer = React.createClass({
 
     loadRequests: function (filters) {
         getRequests(filters, null, data => {
-            console.log('getRequests', data);
             if (this.isMounted()) {
                 var rows = [];
                 rows.push(...data, ...this.state.canRows, ...this.state.reportRows);
