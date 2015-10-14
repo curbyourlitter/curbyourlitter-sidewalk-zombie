@@ -12,6 +12,8 @@ else if (process.env.NODE_ENV === 'production') {
 
 config.bbox = [40.709532,-73.967514,40.739584,-73.923397];
 config.cartodbUser = 'curbyourlitter';
+config.mobile = true;
+config.mobileLimit = 100;
 config.reportFilters = {
     dirty_conditions: true,
     overflowing_litter_basket: true,
