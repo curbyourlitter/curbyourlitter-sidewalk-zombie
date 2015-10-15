@@ -257,6 +257,7 @@
   padding: 0;
 }
 .list-body .entity-list-item {
+  cursor: pointer;
   padding-bottom: 20px;
   padding-top: 20px;
 }
