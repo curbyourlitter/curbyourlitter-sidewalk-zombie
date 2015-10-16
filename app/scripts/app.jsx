@@ -1,3 +1,4 @@
+import attachFastClick from 'fastclick';
 import React from 'react';
 import { Route, Router } from 'react-router';
 import createHistory from 'history/lib/createBrowserHistory';
@@ -8,6 +9,8 @@ import { ListContainer } from './ui/List.jsx';
 import { Report } from './ui/Report.jsx';
 import { Request } from './ui/Request.jsx';
 import { Success } from './ui/Success.jsx';
+
+attachFastClick(document.body);
 
 var history = createHistory();
 var mountNode = document.getElementById("app");
