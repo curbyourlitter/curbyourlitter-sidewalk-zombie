@@ -39,7 +39,7 @@
 .list-overlay {
     background: fadeout(@blue, 40%);
     position: absolute;
-    height: 100%;
+    height: ~"calc(100% - @{header-height})";
     top: @header-height;
     width: 100%;
     z-index: 10000;
