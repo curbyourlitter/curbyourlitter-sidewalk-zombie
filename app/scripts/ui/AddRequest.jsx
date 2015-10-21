@@ -60,18 +60,27 @@ var ImageInput = React.createClass({
     },
 
     render: function () {
+        var errorBlock = null;
+        if (this.state.error) {
+            errorBlock = (
+                <Alert bsStyle='danger'>
+                    There was an error while uploading the photo. Please try again and let us know if the error persists.
+                </Alert>
+            );
+        }
         return (
             <div className="image-input">
                 {(() => {
                     if (!(this.state.submitting || this.state.submitted)) {
                         return (
-                            <div class="image-input">
+                            <div className="image-input">
                                 <label htmlFor="image-input" className="btn btn-default btn-lg">
                                     Upload a photo
                                 </label>
                                 <div className="image-input-field">
                                     <Input accept="image/*" id="image-input" onChange={this.handleChange} type="file" value={this.state.value} />
                                 </div>
+                                {errorBlock}
                             </div>
                         );
                     }
@@ -105,18 +114,6 @@ var ImageInput = React.createClass({
                                             {this.state.progress === 100 ? 'All done. Success!' : `${this.state.progress}%`}
                                         </div>
                                     </Col>
-                                </Row>
-                                {(() => {
-                                    if (this.state.error) {
-                                        return (
-                                            <Alert bsStyle='danger'>
-                                                There was an error while uploading the photo. Please try again and let us know if the error persists.
-                                            </Alert>
-                                        );
-                                    }
-                                })()}
-                                <Row>
-
                                 </Row>
                             </Grid>
                         );
