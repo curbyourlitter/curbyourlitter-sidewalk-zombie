@@ -1,3 +1,5 @@
+@import "variables";
+
 .entity-list {
     .request-list-item {
         &-can-type {
@@ -5,6 +7,10 @@
         }
         &-date {
             font-size: 14px;
+        }
+
+        &:hover {
+            background-color: @green-transparent;
         }
     }
 }
