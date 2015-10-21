@@ -23,6 +23,18 @@ button {
 }
 
 .image-input {
+    label {
+        cursor: pointer;
+        display: block;
+        line-height: 35px;
+        margin: 0 auto;
+        width: 80%;
+    }
+
+    &-field {
+        display: none;
+    }
+
     &-thumbnail {
         .make-xs-column(3, 0);
         background: @blue-light-light;
@@ -31,15 +43,6 @@ button {
 
         img {
             max-height: 100%;
-            max-width: 100%;
-        }
-    }
-
-    &-field {
-        .make-xs-column(9);
-        display: inline-block;
-
-        input {
             max-width: 100%;
         }
     }
