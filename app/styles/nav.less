@@ -45,10 +45,14 @@
     letter-spacing: 1px;
     text-transform: uppercase;
 
+    &-header {
+        height: @header-height;
+    }
+
     .navbar-nav {
         background: white;
         margin: 0;
-        margin-top: 5px;
+        padding-top: 8px;
 
         & > li > a {
             font-size: 14px;
@@ -67,11 +71,16 @@
     }
 
     .navbar-collapse {
+        border: 0;
         padding: 0;
     }
 
     .navbar-toggle {
+        height: 50px;
+        margin-bottom: 0;
         margin-top: 0;
+        padding-bottom: 5px;
+        padding-top: 10px;
 
         &, &:focus, &:hover {
             background: none;
