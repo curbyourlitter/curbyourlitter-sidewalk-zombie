@@ -121,6 +121,15 @@ var ImageInput = React.createClass({
 });
 
 var BinTypeRadio = React.createClass({
+    handleClick: function () {
+        // Simulate radio change
+        this.props.onSelect({
+            target: {
+                value: this.props.value
+            }
+        });
+    },
+
     render: function () {
         var selected = this.props.value === this.props.selected,
             inputClasses = 'bin-type-input';
@@ -128,7 +137,7 @@ var BinTypeRadio = React.createClass({
         return (
             <div className="bin-type-radio">
                 <input ref="input" type="radio" name="bin-type" onChange={this.props.onSelect} checked={selected} value={this.props.value} id={this.props.value}></input>
-                <label htmlFor={this.props.value}>
+                <label htmlFor={this.props.value} onClick={this.handleClick}>
                     <span className={inputClasses}>
                         <span></span>
                     </span>
