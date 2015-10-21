@@ -1,8 +1,16 @@
+.form-control {
+  box-shadow: none;
+}
+.form-control:focus {
+  border-color: #5194ff;
+  box-shadow: none;
+}
 .can-list-item {
   background-color: #ebf0ee;
   color: #688979;
 }
-.can-list-item:hover {
+.can-list-item:hover,
+.can-list-item.hovered-on-map {
   background-color: #688979;
 }
 .can-list-item-icon {
@@ -26,19 +34,17 @@
   background-image: url("/images/existing-bin.png");
   background-repeat: no-repeat;
   background-size: contain;
-  height: 50px;
-  width: 50px;
+  height: 75px;
+  width: 75px;
   display: inline-block;
   float: left;
-  max-width: 25%;
-  margin-top: 10px;
+  max-width: 50%;
 }
 .detail-panel-can-header {
   float: left;
-  font-size: 32px;
-  line-height: 60px;
+  font-size: 24px;
   margin-left: 5%;
-  max-width: 70%;
+  max-width: 50%;
 }
 .can-popup .can-icon {
   background-image: url("/images/existing-bin.png");
@@ -51,7 +57,8 @@
   background-color: rgba(81, 148, 255, 0.05);
   color: #5194ff;
 }
-.report-list-item:hover {
+.report-list-item:hover,
+.report-list-item.hovered-on-map {
   background-color: #99c0fd;
 }
 .report-list-item-icon {
@@ -95,35 +102,35 @@
 .detail-panel-report-icon {
   display: inline-block;
   float: left;
-  max-width: 25%;
-  margin-top: 10px;
+  max-width: 50%;
 }
 .detail-panel-report-icon-dirty-conditions {
   background-image: url("/images/dirty-conditions.png");
   background-repeat: no-repeat;
   background-size: contain;
-  height: 50px;
-  width: 50px;
+  height: 100px;
+  width: 100px;
+  height: 75px;
 }
 .detail-panel-report-icon-overflowing-litter-baskets {
   background-image: url("/images/overflowing-litter-baskets.png");
   background-repeat: no-repeat;
   background-size: contain;
-  height: 50px;
-  width: 50px;
+  height: 75px;
+  width: 75px;
 }
 .detail-panel-report-icon-sanitation-condition {
   background-image: url("/images/sanitation-condition.png");
   background-repeat: no-repeat;
   background-size: contain;
-  height: 50px;
-  width: 50px;
+  height: 75px;
+  width: 75px;
 }
 .detail-panel-report-header {
   float: left;
-  font-size: 32px;
+  font-size: 24px;
   margin-left: 5%;
-  max-width: 70%;
+  max-width: 50%;
 }
 .report-popup .report-icon-dirty-conditions {
   background-image: url("/images/dirty-conditions.png");
@@ -150,7 +157,8 @@
   background-color: rgba(0, 166, 31, 0.05);
   color: #00a61f;
 }
-.request-list-item:hover {
+.request-list-item:hover,
+.request-list-item.hovered-on-map {
   background-color: #00a61f;
 }
 .request-list-item-litter-sighting {
@@ -194,25 +202,24 @@
   background-image: url("/images/bin-request.png");
   background-repeat: no-repeat;
   background-size: contain;
-  height: 50px;
-  width: 50px;
+  height: 75px;
+  width: 75px;
   display: inline-block;
   float: left;
-  margin-top: 10px;
-  max-width: 25%;
+  max-width: 50%;
 }
 .detail-panel-request-icon-litter-sighting {
   background-image: url("/images/litter-sighting.png");
   background-repeat: no-repeat;
   background-size: contain;
-  height: 50px;
-  width: 50px;
+  height: 75px;
+  width: 75px;
 }
 .detail-panel-request-header {
   float: left;
-  font-size: 32px;
+  font-size: 24px;
   margin-left: 5%;
-  max-width: 70%;
+  max-width: 50%;
 }
 .request-popup .request-icon {
   background-image: url("/images/bin-request.png");
@@ -236,12 +243,11 @@
 }
 .navbar-brand {
   color: black;
-  left: 15px;
-  margin-left: 0;
-  margin-top: 5px;
+  left: 25px;
+  margin: 0;
   padding: 0;
   position: fixed;
-  top: 15px;
+  top: 10px;
   z-index: 5000;
 }
 .navbar-brand .logo {
@@ -249,13 +255,13 @@
   background-repeat: no-repeat;
   background-size: contain;
   float: left;
-  height: 54px;
-  width: 54px;
+  height: 45px;
+  width: 45px;
 }
 .navbar-brand .brand-text {
   float: left;
+  letter-spacing: 1px;
   margin-left: 15px;
-  margin-top: 5px;
 }
 .navbar-brand .city {
   font-size: 12px;
@@ -265,17 +271,41 @@
   border-width: 0;
   font-size: 18px;
   font-weight: normal;
-  height: 85px;
+  height: 60px;
   letter-spacing: 1px;
   text-transform: uppercase;
+}
+.navbar-header {
+  height: 60px;
 }
 .navbar .navbar-nav {
   background: white;
   margin: 0;
-  margin-top: 5px;
+  padding-top: 8px;
+}
+.navbar .navbar-nav > li > a {
+  font-size: 14px;
+  letter-spacing: 1px;
+  line-height: 28px;
+}
+.navbar .navbar-nav > li.navbar-map-link > a {
+  background: #5194ff;
+  border-radius: 15px;
+  color: white;
+  margin-bottom: 10px;
+  margin-top: 15px;
+  padding: 1px 15px;
 }
 .navbar .navbar-collapse {
+  border: 0;
   padding: 0;
+}
+.navbar .navbar-toggle {
+  height: 50px;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-bottom: 5px;
+  padding-top: 10px;
 }
 .navbar .navbar-toggle,
 .navbar .navbar-toggle:focus,
@@ -287,7 +317,4 @@
   background-color: black;
   margin-top: 6px;
   width: 25px;
-}
-.navbar a {
-  font-size: 20px;
 }
