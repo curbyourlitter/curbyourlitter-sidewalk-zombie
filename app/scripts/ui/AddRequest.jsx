@@ -264,7 +264,7 @@ var LocationInput = React.createClass({
             message = 'Help us find where the trash is.';
             body = (
                 <div>
-                    <Button className="btn-share" onClick={this.getLocation}>Share your location</Button>
+                    <Button bsSize="lg" className="btn-share" onClick={this.getLocation}>Share your location</Button>
                 </div>
             );
         }
