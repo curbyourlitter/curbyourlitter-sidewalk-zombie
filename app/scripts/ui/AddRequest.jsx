@@ -65,7 +65,7 @@ var ImageInput = React.createClass({
                 {(() => {
                     if (!(this.state.submitting || this.state.submitted)) {
                         return (
-                            <div>
+                            <div class="image-input">
                                 <label htmlFor="image-input" className="btn btn-default btn-lg">
                                     Upload a photo
                                 </label>
