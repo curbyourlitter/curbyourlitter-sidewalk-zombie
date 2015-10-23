@@ -25,10 +25,14 @@ export var Panel = React.createClass({
     }
 });
 
-export var detailPanel = function (Component, table, columns, className = 'detail-panel') {
+export var detailPanel = function (Component, table, columns, className = 'detail-panel', sqlFunction) {
     return React.createClass({
         getData: function (id, callback) {
-            execute(`SELECT ${columns.join(',')} FROM ${table} WHERE cartodb_id = ${id}`, config.cartodbUser, callback);
+            var detailsSql = `SELECT ${columns.join(',')} FROM ${table} WHERE cartodb_id = ${id}`;
+            if (sqlFunction) {
+                detailsSql = sqlFunction(id, config);
+            }
+            execute(detailsSql, config.cartodbUser, callback);
         },
 
         updateData: function (id) {

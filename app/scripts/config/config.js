@@ -27,6 +27,7 @@ config.requestFilters = {
 config.tables = {
     can: 'cans',
     report: 'threeoneone',
+    reportCodes: 'threeoneone_codes',
     request: 'canrequests'
 };
 config.bintypes = {
