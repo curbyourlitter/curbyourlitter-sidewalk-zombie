@@ -68,8 +68,16 @@ var ListOverlay = React.createClass({
             <div className="list-overlay">
                 <div className="list-overlay-body">
                     <div className="list-overlay-body-header">map the trash</div>
-                    <Link className="btn btn-block btn-default btn-add" to="/add">Do you see litter?</Link>
-                    <Button block onClick={this.handleListClick}>View Data List</Button>
+                    <Link className="btn btn-block btn-default btn-add" to="/add">
+                        <span className="list-overlay-btn-text">Do you see litter?</span>
+                        <span className="list-overlay-icon list-overlay-add-icon"></span>
+                        <div className="clearfix"></div>
+                    </Link>
+                    <Button block onClick={this.handleListClick}>
+                        <span className="list-overlay-btn-text">View Data List</span>
+                        <span className="list-overlay-icon list-overlay-list-icon"></span>
+                        <div className="clearfix"></div>
+                    </Button>
                     <div className="list-overlay-desktop">
                         <div><strong>Desktop Version</strong></div>
                         <div>Visit the site on your computer and check out a more detailed view of the map data.</div>
