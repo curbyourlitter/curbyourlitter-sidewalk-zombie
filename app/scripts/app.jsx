@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { Route, Router } from 'react-router';
 import createHistory from 'history/lib/createBrowserHistory';
 
@@ -12,7 +13,7 @@ import { Success } from './ui/Success.jsx';
 var history = createHistory();
 var mountNode = document.getElementById("app");
 
-React.render((
+ReactDOM.render((
         <Router history={history}>
             <Route path="/" component={ListContainer}/>
             <Route path="/add" component={AddRequest}/>
