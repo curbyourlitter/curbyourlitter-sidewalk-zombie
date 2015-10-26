@@ -140,7 +140,7 @@ var BinTypeRadio = React.createClass({
         if (selected) inputClasses += ' active';
         return (
             <div className="bin-type-radio">
-                <input ref="input" type="radio" name="bin-type" onChange={this.props.onSelect} checked={selected} value={this.props.value} id={this.props.value}></input>
+                <input type="radio" name="bin-type" onChange={this.props.onSelect} checked={selected} value={this.props.value} id={this.props.value}></input>
                 <label htmlFor={this.props.value} onClick={this.handleClick}>
                     <span className={inputClasses}>
                         <span></span>
@@ -164,7 +164,7 @@ var MailingListOptIn = React.createClass({
         if (this.props.value) inputClasses += ' active';
         return (
             <div className="mailing-list-opt-in-radio" onClick={this.handleClick}>
-                <input ref="input" type="checkbox" onChange={e => {}} checked={this.props.value} id="mailing-list-opt-in"></input>
+                <input type="checkbox" onChange={e => {}} checked={this.props.value} id="mailing-list-opt-in"></input>
                 <span className={inputClasses}>
                     <span></span>
                 </span>
