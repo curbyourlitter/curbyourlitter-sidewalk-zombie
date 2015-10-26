@@ -6,6 +6,8 @@ import qwest from 'qwest';
 
 import config from '../config/config';
 
+var geocoder = new google.maps.Geocoder;
+
 var ImageInput = React.createClass({
     getInitialState: function () {
         return {
@@ -175,16 +177,88 @@ var MailingListOptIn = React.createClass({
     }
 });
 
-var LocationInput = React.createClass({
+var AddressInput = React.createClass({
     getInitialState: function () {
         return {
             address: null,
+            zip: 11222
+        }
+    },
+
+    componentDidMount: function () {
+        if (this.props.latlng) {
+            this.findAddress();
+        }
+    },
+
+    getAddressFromGeocoder: function (geocoderResult) {
+        var street_number = _.find(geocoderResult.address_components, component => {
+            return component.types.indexOf('street_number') >= 0;
+        }).long_name;
+        var street = _.find(geocoderResult.address_components, component => {
+            return component.types.indexOf('route') >= 0;
+        }).short_name;
+        return street_number + ' ' + street;
+    },
+
+    getZipFromGeocoder: function (geocoderResult) {
+        return _.find(geocoderResult.address_components, component => {
+            return component.types.indexOf('postal_code') >= 0;
+        }).long_name;
+    },
+
+    findAddress: function (latlng) {
+        latlng = (latlng ? latlng : this.props.latlng);
+        var location = {
+            lat: this.props.latlng[0],
+            lng: this.props.latlng[1]
+        };
+        geocoder.geocode({'location': location}, (results, status) => {
+            if (status !== google.maps.GeocoderStatus.OK) return;
+            this.setState({
+                address: this.getAddressFromGeocoder(results[0]),
+                zip: this.getZipFromGeocoder(results[0])
+            });
+        });
+    },
+
+    submitAddress: function () {
+        this.props.onGeocodeBegin();
+        var params = {
+            address: `${this.state.address}, Brooklyn, NY ${this.state.zip}`,
+            componentRestrictions: { postalCode: this.state.zip.toString() }
+        };
+        geocoder.geocode(params, (results, status) => {
+            if (status === google.maps.GeocoderStatus.OK) {
+                var latlng = [results[0].geometry.location.lat(), results[0].geometry.location.lng()]
+                this.props.onGeocodeFinish(latlng);
+                this.findAddress(latlng);
+            }
+            else {
+                this.props.onError('There was an error while getting the position of the address you entered. Please try again and let us know if the problem persists.');
+            }
+        });
+    },
+
+    render: function () {
+        return (
+            <div>
+                <Input type="text" label="Address" placeholder="eg, 237 Eckford St" onChange={(e) => this.setState({ address: e.target.value })} value={this.state.address} />
+                <Input type="text" label="Zipcode" onChange={(e) => this.setState({ zip: e.target.value })} value={this.state.zip} />
+                <Button bsSize="large" onClick={this.submitAddress}>Update Location</Button>
+            </div>
+        );
+    }
+});
+
+var LocationInput = React.createClass({
+    getInitialState: function () {
+        return {
             error: null,
             enterAddress: null,
             gettingLocation: false,
             gotLocation: false,
-            useFoundLocation: null,
-            zip: 11222
+            useFoundLocation: null
         }
     },
 
@@ -210,55 +284,38 @@ var LocationInput = React.createClass({
         );       
     },
 
-    submitAddress: function () {
+    addressError: function (message) {
+        this.setState({
+            error: message,
+            gettingLocation: false
+        });
+    },
+
+    addressGeocodeBegin: function() {
         this.setState({
             enterAddress: false,
             error: null,
             gettingLocation: true
         });
-        var geocoder = new google.maps.Geocoder,
-            params = {
-                address: `${this.state.address} , Brooklyn, NY ${this.state.zip}`,
+    },
 
-                // Keep it in the zip code we're interested in
-                componentRestrictions: {
-                    postalCode: this.state.zip.toString()
-                }
-            };
-        geocoder.geocode(params, (results, status) => {
-            if (status === google.maps.GeocoderStatus.OK) {
-                var latlng = [results[0].geometry.location.lat(), results[0].geometry.location.lng()];
-                this.props.onLocationChange(latlng);
-                this.setState({
-                    gettingLocation: false,
-                    gotLocation: true
-                });
-            }
-            else {
-                this.setState({
-                    error: 'There was an error while getting the position of the address you entered. Please try again and let us know if the problem persists.',
-                    gettingLocation: false
-                });
-            }
+    addressGeocodeFinish: function(latlng) {
+        this.setState({
+            gettingLocation: false,
+            gotLocation: true
         });
+        this.props.onLocationChange(latlng);
     },
 
     render: function () {
         var message,
-            body;
+            body = <AddressInput onError={this.addressError} onGeocodeBegin={this.addressGeocodeBegin} onGeocodeFinish={this.addressGeocodeFinish} latlng={this.props.latlng} />;
 
         if (this.state.gettingLocation) {
             message = 'Getting location...';
         }
         else if (this.state.enterAddress) {
             message = 'Enter the location:';
-            body = (
-                <div>
-                    <Input type="text" label="Address" placeholder="eg, 237 Eckford St" onChange={(e) => { this.setState({ address: e.target.value })}} value={this.state.address} />
-                    <Input type="text" label="Zipcode" value={this.state.zip} readOnly />
-                    <Button onClick={this.submitAddress}>Submit</Button>
-                </div>
-            );
         }
         else if (!this.props.latlng) {
             message = 'Help us find where the trash is.';
@@ -392,7 +449,6 @@ export var AddRequest = React.createClass({
             qwest.put(config.apiBase + `/canrequests/${this.state.pk}/`, data)
                 .then(() => {
                     if (data.error) {
-                        console.log('apparently there was an error?',data.error);
                         this.setState({
                             error: true,
                             submitting: false
@@ -407,7 +463,6 @@ export var AddRequest = React.createClass({
                     }
                 })
                 .catch(() => {
-                    console.log('error');
                     this.setState({ error: true });
                 });
         }
