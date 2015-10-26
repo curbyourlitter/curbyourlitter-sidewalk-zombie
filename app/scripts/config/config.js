@@ -53,7 +53,7 @@ config.bintypes = {
         subtypes: [
             {
                 description: "Bottle & Can recycling bins take only metal cans and plastic bottles to be recycled.",
-                display: "Standard Bottle & Bin",
+                display: "Standard Bottle & Can",
                 label: "standard_bottle_can",
                 image: "/images/bintypes/recycling_standard_bottle_can.jpg"
             },
@@ -65,7 +65,7 @@ config.bintypes = {
             },
             {
                 description: "This type of bin uses solar panels to compact metal cans and plastic bottles to be recycled.",
-                display: "BigBelly Bottle & Bin",
+                display: "BigBelly Bottle & Can",
                 label: "bigbelly_bottle_can",
                 image: "/images/bintypes/recycling_bigbelly_bottle_can.jpg"
             },
