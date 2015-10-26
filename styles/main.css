@@ -3770,6 +3770,24 @@ fieldset[disabled] .mailing-list-opt-in-radio .mailing-list-opt-in-input label {
 .list-overlay-body .btn-add {
   padding-top: 10px;
 }
+.list-overlay-btn-text {
+  display: inline-block;
+  max-width: calc(100% - 40px);
+}
+.list-overlay-icon {
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: inline-block;
+  float: right;
+  height: 40px;
+  width: 40px;
+}
+.list-overlay-add-icon {
+  background-image: url("/images/add.png");
+}
+.list-overlay-list-icon {
+  background-image: url("/images/list.png");
+}
 .nav-header {
   background: white;
   color: black;
