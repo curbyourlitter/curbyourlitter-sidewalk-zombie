@@ -242,9 +242,9 @@ var AddressInput = React.createClass({
 
     render: function () {
         return (
-            <div>
-                <Input type="text" label="Address" placeholder="eg, 237 Eckford St" onChange={(e) => this.setState({ address: e.target.value })} value={this.state.address} />
-                <Input type="text" label="Zipcode" onChange={(e) => this.setState({ zip: e.target.value })} value={this.state.zip} />
+            <div className="address-input">
+                <Input className="address-input-address" type="text" label="Address" placeholder="eg, 237 Eckford St" onChange={(e) => this.setState({ address: e.target.value })} value={this.state.address} />
+                <Input className="address-input-zip" type="text" label="Zipcode" onChange={(e) => this.setState({ zip: e.target.value })} value={this.state.zip} />
                 <Button bsSize="large" onClick={this.submitAddress}>Update Location</Button>
             </div>
         );
