@@ -3909,6 +3909,16 @@ fieldset[disabled] .mailing-list-opt-in-radio .mailing-list-opt-in-input label {
 .location-input .use-found-location .column-yes {
   padding-left: 0;
 }
+.address-input {
+  text-align: left;
+}
+.address-input-zip {
+  max-width: 50%;
+}
+.address-input button {
+  margin-left: 10%;
+  width: 80%;
+}
 .success {
   background: white;
   height: 100%;
