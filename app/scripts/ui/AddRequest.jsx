@@ -476,7 +476,7 @@ export var AddRequest = React.createClass({
         return (
             <div className="add-request">
                 <header>
-                    <h1>Do you see litter?</h1>
+                    <h1>Do You See Litter?</h1>
                     <Link className="cancel" to="/">Cancel</Link>
                 </header>
                 <form className="add-request-form" onSubmit={this.submitRequest}>
