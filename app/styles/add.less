@@ -27,9 +27,25 @@ button {
     label {
         cursor: pointer;
         display: block;
-        line-height: 35px;
         margin: 0 auto;
         width: 80%;
+    }
+
+    &-icon {
+        background-image: data-uri("/images/add.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        display: inline-block;
+        float: left;
+        height: 40px;
+        margin-left: 25px;
+        width: 40px;
+    }
+
+    &-btn-text {
+        float: right;
+        line-height: 38px;
+        margin-right: 25px;
     }
 
     &-field {

@@ -77,7 +77,9 @@ var ImageInput = React.createClass({
                         return (
                             <div className="image-input">
                                 <label htmlFor="image-input" className="btn btn-default btn-lg">
-                                    Upload a photo
+                                    <span className="image-input-icon"></span>
+                                    <span className="image-input-btn-text">Upload a photo</span>
+                                    <span className="clearfix"></span>
                                 </label>
                                 <div className="image-input-field">
                                     <Input accept="image/*" id="image-input" onChange={this.handleChange} type="file" value={this.state.value} />
