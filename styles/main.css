@@ -3727,6 +3727,9 @@ fieldset[disabled] .mailing-list-opt-in-radio .mailing-list-opt-in-input label {
   line-height: 21px;
   margin-top: 8px;
 }
+.entity-list .can-list-item-location {
+  font-size: 12px;
+}
 .entity-list .can-list-item:hover {
   background-color: #ebf0ee;
 }
@@ -4029,6 +4032,12 @@ a.navbar-brand .city {
 }
 .can-list-item-type {
   font-size: 16px;
+}
+.can-list-item-location {
+  font-family: 'NationalWeb-Book', sans-serif;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 .detail-panel-can h2 {
   text-transform: capitalize;

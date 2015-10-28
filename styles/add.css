@@ -3512,6 +3512,12 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .can-list-item-type {
   font-size: 16px;
 }
+.can-list-item-location {
+  font-family: 'NationalWeb-Book', sans-serif;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
 .detail-panel-can h2 {
   text-transform: capitalize;
 }
