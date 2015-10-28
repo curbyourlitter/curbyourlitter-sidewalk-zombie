@@ -38,7 +38,7 @@ export var DetailPanelHeader = React.createClass({
             if (this.refs.detailHeaderText.offsetHeight > 35) {
                 this.setState({ wrapped: true });
             }
-        }, 100);
+        }, 200);
     },
 
     render: function () {
