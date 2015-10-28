@@ -79,5 +79,6 @@ config.bintypes = {
     }
 };
 config.timezone = 'America/New_York';
+config.zip = '11222';
 
 export default config;
