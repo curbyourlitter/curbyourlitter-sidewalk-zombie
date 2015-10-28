@@ -3485,6 +3485,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 }
 .btn,
 button {
+  font-size: 17px;
   height: 60px;
 }
 .btn[type=submit],
@@ -3503,9 +3504,23 @@ button[type=submit] {
 .image-input label {
   cursor: pointer;
   display: block;
-  line-height: 35px;
   margin: 0 auto;
   width: 80%;
+}
+.image-input-icon {
+  background-image: url("/images/add.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: inline-block;
+  float: left;
+  height: 40px;
+  margin-left: 10px;
+  width: 40px;
+}
+.image-input-btn-text {
+  float: right;
+  line-height: 38px;
+  margin-right: 25px;
 }
 .image-input-field {
   display: none;
@@ -3552,11 +3567,17 @@ button[type=submit] {
 .image-input-actions a {
   color: red;
 }
+.bin-type > label {
+  font-size: 17px;
+}
 .bin-type-radio input {
   display: none;
 }
 .bin-type-radio label {
   cursor: pointer;
+  font-family: 'NationalWeb-Book', sans-serif;
+  font-size: 14px;
+  font-weight: normal;
   margin-bottom: 0;
   width: 100%;
 }
@@ -3656,7 +3677,9 @@ fieldset[disabled] .mailing-list-opt-in-radio .mailing-list-opt-in-input label {
   width: 100%;
 }
 .location-input-message {
-  font-weight: bold;
+  font-family: 'NationalWeb-Book', sans-serif;
+  font-size: 17px;
+  font-weight: normal;
   margin: 10px auto;
   width: 80%;
 }
@@ -3684,6 +3707,8 @@ fieldset[disabled] .mailing-list-opt-in-radio .mailing-list-opt-in-input label {
 }
 .success {
   background: white;
+  font-family: 'NationalWeb-Book', sans-serif;
+  font-size: 17px;
   height: 100%;
   padding: 35px;
   padding-top: 150px;
@@ -3691,15 +3716,16 @@ fieldset[disabled] .mailing-list-opt-in-radio .mailing-list-opt-in-input label {
   width: 100%;
 }
 .success .thanks {
-  font-size: 48px;
+  font-size: 50px;
 }
 .success p {
   margin-bottom: 25px;
   margin-top: 25px;
 }
 .entity-list .can-list-item-type {
-  font-size: 26px;
-  line-height: 26px;
+  font-size: 21px;
+  line-height: 21px;
+  margin-top: 8px;
 }
 .entity-list .can-list-item:hover {
   background-color: #ebf0ee;
@@ -3739,8 +3765,8 @@ fieldset[disabled] .mailing-list-opt-in-radio .mailing-list-opt-in-input label {
 }
 .list-body .entity-list-item {
   cursor: pointer;
-  padding-bottom: 10px;
-  padding-top: 10px;
+  padding-bottom: 5px;
+  padding-top: 5px;
 }
 .list-body .entity-list-item .row {
   margin-left: 0;
@@ -3766,11 +3792,11 @@ fieldset[disabled] .mailing-list-opt-in-radio .mailing-list-opt-in-input label {
   padding: 15px;
 }
 .list-overlay-body-header {
-  font-size: 35px;
+  font-size: 30px;
   text-transform: uppercase;
 }
 .list-overlay-body .btn {
-  font-size: 25px;
+  font-size: 20px;
   margin-bottom: 20px;
   margin-top: 20px;
   padding-left: 20px;
@@ -3782,6 +3808,7 @@ fieldset[disabled] .mailing-list-opt-in-radio .mailing-list-opt-in-input label {
 }
 .list-overlay-btn-text {
   display: inline-block;
+  margin-top: 8px;
   max-width: calc(100% - 40px);
 }
 .list-overlay-icon {
@@ -3798,13 +3825,19 @@ fieldset[disabled] .mailing-list-opt-in-radio .mailing-list-opt-in-input label {
 .list-overlay-list-icon {
   background-image: url("/images/list.png");
 }
+.list-overlay-desktop {
+  font-size: 14px;
+}
+.list-overlay-desktop-body {
+  font-family: 'NationalWeb-Book', sans-serif;
+}
 .nav-header {
   background: white;
   color: black;
   height: inherit;
   padding: 15px;
 }
-.navbar-brand {
+a.navbar-brand {
   color: black;
   font-size: 16px;
   left: 25px;
@@ -3814,7 +3847,7 @@ fieldset[disabled] .mailing-list-opt-in-radio .mailing-list-opt-in-input label {
   top: 10px;
   z-index: 5000;
 }
-.navbar-brand .logo {
+a.navbar-brand .logo {
   background-image: url('/images/logo.png');
   background-repeat: no-repeat;
   background-size: contain;
@@ -3822,12 +3855,12 @@ fieldset[disabled] .mailing-list-opt-in-radio .mailing-list-opt-in-input label {
   height: 40px;
   width: 40px;
 }
-.navbar-brand .brand-text {
+a.navbar-brand .brand-text {
   float: left;
   letter-spacing: 1px;
   margin-left: 15px;
 }
-.navbar-brand .city {
+a.navbar-brand .city {
   font-size: 12px;
   line-height: 12px;
 }
@@ -3888,6 +3921,7 @@ fieldset[disabled] .mailing-list-opt-in-radio .mailing-list-opt-in-input label {
 }
 .panel-close {
   color: #5194ff;
+  letter-spacing: 1px;
   text-transform: uppercase;
 }
 .detail-panel {
@@ -3899,7 +3933,17 @@ fieldset[disabled] .mailing-list-opt-in-radio .mailing-list-opt-in-input label {
   margin-bottom: 15px;
 }
 .detail-panel-header {
-  line-height: 50px;
+  font-size: 25px;
+  line-height: 25px;
+  margin-top: 0;
+}
+.detail-panel-header-text-wrapper {
+  display: inline-block;
+  margin-top: 15px;
+  max-width: calc(100% - 100px);
+  padding-left: 10px;
+}
+.detail-panel-header-text-wrapper.wrapped {
   margin-top: 0;
 }
 .detail-panel-icon {
@@ -3911,6 +3955,7 @@ fieldset[disabled] .mailing-list-opt-in-radio .mailing-list-opt-in-input label {
   padding: 15px;
 }
 .detail-panel-row {
+  font-size: 18px;
   margin-bottom: 15px;
   margin-top: 15px;
 }
@@ -3919,17 +3964,18 @@ fieldset[disabled] .mailing-list-opt-in-radio .mailing-list-opt-in-input label {
 }
 .detail-panel-row label {
   font-family: 'NationalWeb-Book', sans-serif;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: normal;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
 .entity-list .report-list-item-complaint {
-  font-size: 26px;
-  line-height: 26px;
+  font-size: 21px;
+  line-height: 21px;
+  margin-top: 8px;
 }
 .entity-list .report-list-item-address {
-  font-size: 14px;
+  font-size: 12px;
 }
 .entity-list .report-list-item:hover {
   background: rgba(81, 148, 255, 0.05);
@@ -3941,11 +3987,12 @@ fieldset[disabled] .mailing-list-opt-in-radio .mailing-list-opt-in-input label {
   width: 60px;
 }
 .entity-list .request-list-item-can-type {
-  font-size: 26px;
-  line-height: 26px;
+  font-size: 21px;
+  line-height: 21px;
+  margin-top: 8px;
 }
 .entity-list .request-list-item-date {
-  font-size: 14px;
+  font-size: 12px;
 }
 .entity-list .request-list-item:hover {
   background-color: rgba(0, 166, 31, 0.05);
@@ -4216,17 +4263,18 @@ header {
   height: 50px;
   padding: 15px 25px;
   position: fixed;
-  text-transform: uppercase;
   top: 0;
   width: 100%;
   z-index: 10000;
 }
 header h1 {
   float: left;
-  font-size: 20px;
+  font-size: 21px;
   margin: 0;
 }
 header .cancel {
   color: white;
   float: right;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }

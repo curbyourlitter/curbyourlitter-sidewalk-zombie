@@ -3722,6 +3722,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 }
 .btn,
 button {
+  font-size: 17px;
   height: 60px;
 }
 .btn[type=submit],
@@ -3740,9 +3741,23 @@ button[type=submit] {
 .image-input label {
   cursor: pointer;
   display: block;
-  line-height: 35px;
   margin: 0 auto;
   width: 80%;
+}
+.image-input-icon {
+  background-image: url("/images/add.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: inline-block;
+  float: left;
+  height: 40px;
+  margin-left: 10px;
+  width: 40px;
+}
+.image-input-btn-text {
+  float: right;
+  line-height: 38px;
+  margin-right: 25px;
 }
 .image-input-field {
   display: none;
@@ -3789,11 +3804,17 @@ button[type=submit] {
 .image-input-actions a {
   color: red;
 }
+.bin-type > label {
+  font-size: 17px;
+}
 .bin-type-radio input {
   display: none;
 }
 .bin-type-radio label {
   cursor: pointer;
+  font-family: 'NationalWeb-Book', sans-serif;
+  font-size: 14px;
+  font-weight: normal;
   margin-bottom: 0;
   width: 100%;
 }
@@ -3893,7 +3914,9 @@ fieldset[disabled] .mailing-list-opt-in-radio .mailing-list-opt-in-input label {
   width: 100%;
 }
 .location-input-message {
-  font-weight: bold;
+  font-family: 'NationalWeb-Book', sans-serif;
+  font-size: 17px;
+  font-weight: normal;
   margin: 10px auto;
   width: 80%;
 }
@@ -3921,6 +3944,8 @@ fieldset[disabled] .mailing-list-opt-in-radio .mailing-list-opt-in-input label {
 }
 .success {
   background: white;
+  font-family: 'NationalWeb-Book', sans-serif;
+  font-size: 17px;
   height: 100%;
   padding: 35px;
   padding-top: 150px;
@@ -3928,7 +3953,7 @@ fieldset[disabled] .mailing-list-opt-in-radio .mailing-list-opt-in-input label {
   width: 100%;
 }
 .success .thanks {
-  font-size: 48px;
+  font-size: 50px;
 }
 .success p {
   margin-bottom: 25px;

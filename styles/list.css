@@ -265,8 +265,8 @@
 }
 .list-body .entity-list-item {
   cursor: pointer;
-  padding-bottom: 10px;
-  padding-top: 10px;
+  padding-bottom: 5px;
+  padding-top: 5px;
 }
 .list-body .entity-list-item .row {
   margin-left: 0;
@@ -292,11 +292,11 @@
   padding: 15px;
 }
 .list-overlay-body-header {
-  font-size: 35px;
+  font-size: 30px;
   text-transform: uppercase;
 }
 .list-overlay-body .btn {
-  font-size: 25px;
+  font-size: 20px;
   margin-bottom: 20px;
   margin-top: 20px;
   padding-left: 20px;
@@ -308,6 +308,7 @@
 }
 .list-overlay-btn-text {
   display: inline-block;
+  margin-top: 8px;
   max-width: calc(100% - 40px);
 }
 .list-overlay-icon {
@@ -323,4 +324,10 @@
 }
 .list-overlay-list-icon {
   background-image: url("/images/list.png");
+}
+.list-overlay-desktop {
+  font-size: 14px;
+}
+.list-overlay-desktop-body {
+  font-family: 'NationalWeb-Book', sans-serif;
 }

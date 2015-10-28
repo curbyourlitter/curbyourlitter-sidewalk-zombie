@@ -241,7 +241,7 @@
   height: inherit;
   padding: 15px;
 }
-.navbar-brand {
+a.navbar-brand {
   color: black;
   font-size: 16px;
   left: 25px;
@@ -251,7 +251,7 @@
   top: 10px;
   z-index: 5000;
 }
-.navbar-brand .logo {
+a.navbar-brand .logo {
   background-image: url('/images/logo.png');
   background-repeat: no-repeat;
   background-size: contain;
@@ -259,12 +259,12 @@
   height: 40px;
   width: 40px;
 }
-.navbar-brand .brand-text {
+a.navbar-brand .brand-text {
   float: left;
   letter-spacing: 1px;
   margin-left: 15px;
 }
-.navbar-brand .city {
+a.navbar-brand .city {
   font-size: 12px;
   line-height: 12px;
 }

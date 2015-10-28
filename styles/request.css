@@ -236,11 +236,12 @@
   width: 35px;
 }
 .entity-list .request-list-item-can-type {
-  font-size: 26px;
-  line-height: 26px;
+  font-size: 21px;
+  line-height: 21px;
+  margin-top: 8px;
 }
 .entity-list .request-list-item-date {
-  font-size: 14px;
+  font-size: 12px;
 }
 .entity-list .request-list-item:hover {
   background-color: rgba(0, 166, 31, 0.05);
