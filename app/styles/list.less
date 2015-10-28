@@ -52,12 +52,12 @@
         padding: @panel-padding;
 
         &-header {
-            font-size: 35px;
+            font-size: 30px;
             text-transform: uppercase;
         }
 
         .btn {
-            font-size: 25px;
+            font-size: 20px;
             margin-bottom: 20px;
             margin-top: 20px;
             padding-left: 20px;
@@ -72,6 +72,7 @@
 
     &-btn-text {
         display: inline-block;
+        margin-top: 8px;
         max-width: ~"calc(100% - 40px)";
     }
 
@@ -90,5 +91,13 @@
 
     &-list-icon {
         background-image: data-uri("/images/list.png");
+    }
+
+    &-desktop {
+        font-size: 14px;
+
+        &-body {
+            font-family: @book-font-family;
+        }
     }
 }

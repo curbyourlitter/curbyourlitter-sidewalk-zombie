@@ -79,8 +79,8 @@ var ListOverlay = React.createClass({
                         <div className="clearfix"></div>
                     </Button>
                     <div className="list-overlay-desktop">
-                        <div><strong>Desktop Version</strong></div>
-                        <div>Visit the site on your computer and check out a more detailed view of the map data.</div>
+                        <div className="list-overlay-desktop-header">Desktop Version</div>
+                        <div className="list-overlay-desktop-body">Visit the site on your computer and check out a more detailed view of the map data.</div>
                     </div>
                 </div>
             </div>
