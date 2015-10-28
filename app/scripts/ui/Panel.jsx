@@ -7,6 +7,10 @@ import { execute } from 'curbyourlitter-sql/lib/execute';
 import config from '../config/config';
 
 export var Panel = React.createClass({
+    componentDidMount: function () {
+        window.overlayHidden = true;
+    },
+
     render: function () {
         var className = 'panel';
         if (this.props.className) {

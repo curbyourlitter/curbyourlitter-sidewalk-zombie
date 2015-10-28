@@ -20,7 +20,7 @@ var loadingCans = false,
 export var List = React.createClass({
     getInitialState: function () {
         return {
-            overlayShown: true
+            overlayShown: !window.overlayHidden
         }
     },
 
