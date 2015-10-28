@@ -25,6 +25,41 @@ export var Panel = React.createClass({
     }
 });
 
+export var DetailPanelHeader = React.createClass({
+    getInitialState: function () {
+        return {
+            wrapped: false
+        }
+    },
+
+    componentDidMount: function () {
+        // Attempt to tell when the text wraps in order to reduce margin
+        setTimeout(() => {
+            if (this.refs.detailHeaderText.offsetHeight > 35) {
+                this.setState({ wrapped: true });
+            }
+        }, 100);
+    },
+
+    render: function () {
+        var textWrapperClasses = 'detail-panel-header-text-wrapper';
+        if (this.state.wrapped) {
+            textWrapperClasses += ' wrapped';
+        }
+        return (
+            <h2 className="detail-panel-header">
+                <span className={this.props.iconClasses}></span>
+                <span className={textWrapperClasses}>
+                    <span className="detail-panel-header-text" ref="detailHeaderText">
+                        {this.props.text}
+                    </span>
+                </span>
+                <span className="clearfix"></span>
+            </h2>
+        );
+    }
+});
+
 export var detailPanel = function (Component, table, columns, className = 'detail-panel', sqlFunction) {
     return React.createClass({
         getData: function (id, callback) {

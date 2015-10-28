@@ -6,7 +6,7 @@ import { getCanColumnsDetails } from 'curbyourlitter-sql/lib/cans';
 
 import config from '../config/config';
 import { NavHeader } from './NavHeader.jsx';
-import { detailPanel } from './Panel.jsx';
+import { DetailPanelHeader, detailPanel } from './Panel.jsx';
 
 export var slugifyCanType = function (canType) {
         return canType.replace(/ /g, '-').toLowerCase();
@@ -19,11 +19,7 @@ export var Can = detailPanel(React.createClass({
             <div>
                 <NavHeader/>
                 <div className="detail-panel-can">
-                    <h2 className="detail-panel-header">
-                        <span className={iconClasses}></span>
-                        <span className="detail-panel-can-header">Existing Bin</span>
-                        <span className="clearfix"></span>
-                    </h2>
+                    <DetailPanelHeader iconClasses={iconClasses} text="Existing Bin" />
                     <div className="detail-panel-body">
                         <div className="detail-panel-row">
                             <label>Type</label>

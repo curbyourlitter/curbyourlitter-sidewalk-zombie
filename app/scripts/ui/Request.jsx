@@ -8,7 +8,7 @@ import { getRequestColumnsDetails } from 'curbyourlitter-sql/lib/requests';
 
 import config from '../config/config';
 import { NavHeader } from './NavHeader.jsx';
-import { detailPanel } from './Panel.jsx';
+import { DetailPanelHeader, detailPanel } from './Panel.jsx';
 
 export var Request = detailPanel(React.createClass({
     getInitialState: function () {
@@ -35,13 +35,7 @@ export var Request = detailPanel(React.createClass({
                 <NavHeader/>
                 <div className="detail-panel-request">
                     {this.props.image ? <img src={this.props.image} /> : ''}
-                    <h2 className="detail-panel-header">
-                        <span className={iconClasses}></span>
-                        <span className="detail-panel-request-header">
-                            {this.props.can_type ? `${this.props.can_type} bin request` : 'litter sighting'}
-                        </span>
-                        <span className="clearfix"></span>
-                    </h2>
+                    <DetailPanelHeader iconClasses={iconClasses} text={this.props.can_type ? `${this.props.can_type} bin request` : 'litter sighting'} />
                     <div className="detail-panel-body">
                         {(() => {
                             if (this.props.can_type) {

@@ -8,7 +8,7 @@ import { getReportColumnsDetails, getReportSqlDetails } from 'curbyourlitter-sql
 
 import config from '../config/config';
 import { NavHeader } from './NavHeader.jsx';
-import { detailPanel } from './Panel.jsx';
+import { DetailPanelHeader, detailPanel } from './Panel.jsx';
 
 export var slugifyComplaintType = function (complaintType) {
         return complaintType.replace(/ /g, '-').toLowerCase();
@@ -24,11 +24,7 @@ export var Report = detailPanel(React.createClass({
             <div>
                 <NavHeader/>
                 <div className="detail-panel-report">
-                    <h2 className="detail-panel-header">
-                        <span className={iconClasses}></span>
-                        <span className="detail-panel-report-header">{this.props.complaint_type}</span>
-                        <span className="clearfix"></span>
-                    </h2>
+                    <DetailPanelHeader iconClasses={iconClasses} text={this.props.complaint_type} />
                     <div className="detail-panel-body">
                         <div className="detail-panel-row">
                             <label>Complaint Type</label>

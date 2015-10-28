@@ -21,8 +21,21 @@
 
     &-header {
         font-size: 25px;
-        line-height: 50px;
+        line-height: 25px;
         margin-top: 0;
+
+        &-text {
+            &-wrapper {
+                display: inline-block;
+                margin-top: 15px;
+                max-width: ~"calc(100% - 100px)";
+                padding-left: 10px;
+
+                &.wrapped {
+                    margin-top: 0;
+                }
+            }
+        }
     }
 
     &-icon {
