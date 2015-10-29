@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactAnalytics from 'ga-react-router';
 import ReactDOM from 'react-dom';
 import { Route, Router } from 'react-router';
 import createHistory from 'history/lib/createBrowserHistory';
@@ -13,8 +14,12 @@ import { Success } from './ui/Success.jsx';
 var history = createHistory();
 var mountNode = document.getElementById("app");
 
+var triggerGA = function () {
+    ReactAnalytics({ path: location.pathname });
+};
+
 ReactDOM.render((
-        <Router history={history}>
+        <Router history={history} onUpdate={triggerGA}>
             <Route path="/" component={ListContainer}/>
             <Route path="/add" component={AddRequest}/>
             <Route path="/success" component={Success}/>
