@@ -479,7 +479,7 @@ export var AddRequest = React.createClass({
                         onPk={(pk) => this.updateField('pk', pk)} />
                     <LocationInput onLocationChange={(l) => this.updateField('latlng', l)} latlng={this.state.latlng} />
                     <div className="bin-type">
-                        <label>What do you think would help?</label>
+                        <label>What do you think would help? (must select one)</label>
                         <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Litter Bin" value="litter_standard"/>
                         <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Bottle & Can Recycling Bin" value="recycling_standard_bottle_can"/>
                         <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Paper Recycling Bin" value="recycling_standard_paper"/>
