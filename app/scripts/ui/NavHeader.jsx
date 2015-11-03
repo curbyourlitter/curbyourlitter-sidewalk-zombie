@@ -6,13 +6,7 @@ export var NavHeader = React.createClass({
     render: function () {
         return (
             <header className="nav-header">
-                <Link to="/" className="navbar-brand">
-                    <div className="logo"></div>
-                    <div className="brand-text">
-                        <div className="brand">Curb Your Litter</div>
-                        <div className="city">Greenpoint</div>
-                    </div>
-                </Link>
+                <Link to="/" className="navbar-brand"></Link>
                 <Navbar fixedTop toggleNavKey={0}>
                     <Nav eventKey={0}>
                         <NavItem href="http://curbyourlitter.org/the-problem/">The Problem</NavItem>
