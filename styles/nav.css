@@ -248,31 +248,17 @@
   padding: 15px;
 }
 a.navbar-brand {
-  color: black;
-  font-size: 16px;
+  background-image: url('/images/logo.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 60px;
   left: 25px;
   margin: 0;
   padding: 0;
   position: fixed;
-  top: 10px;
+  top: 3px;
+  width: 191px;
   z-index: 5000;
-}
-a.navbar-brand .logo {
-  background-image: url('/images/logo.png');
-  background-repeat: no-repeat;
-  background-size: contain;
-  float: left;
-  height: 40px;
-  width: 40px;
-}
-a.navbar-brand .brand-text {
-  float: left;
-  letter-spacing: 1px;
-  margin-left: 15px;
-}
-a.navbar-brand .city {
-  font-size: 12px;
-  line-height: 12px;
 }
 .navbar {
   background: white;
@@ -289,18 +275,21 @@ a.navbar-brand .city {
 .navbar .navbar-nav {
   background: white;
   margin: 0;
-  padding-top: 8px;
+  padding-bottom: 48px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 1px;
 }
 .navbar .navbar-nav > li > a {
   font-size: 14px;
   letter-spacing: 1px;
-  line-height: 28px;
+  line-height: 24px;
 }
 .navbar .navbar-nav > li.navbar-map-link > a {
   background: #5194ff;
   border-radius: 15px;
   color: white;
-  margin-bottom: 10px;
+  display: inline-block;
   margin-top: 15px;
   padding: 1px 15px;
 }
@@ -309,7 +298,7 @@ a.navbar-brand .city {
   padding: 0;
 }
 .navbar .navbar-toggle {
-  height: 50px;
+  height: 49px;
   margin-bottom: 0;
   margin-top: 0;
   padding-bottom: 5px;
@@ -322,7 +311,7 @@ a.navbar-brand .city {
   border: none;
 }
 .navbar .navbar-toggle .icon-bar {
-  background-color: black;
-  margin-top: 6px;
-  width: 25px;
+  background-color: #5194ff;
+  margin-top: 4px;
+  width: 22px;
 }
