@@ -4245,6 +4245,7 @@ body,
   font-weight: normal;
   height: 100%;
   overflow-x: hidden;
+  overflow-y: scroll;
   width: 100%;
   -webkit-overflow-scrolling: touch;
 }
