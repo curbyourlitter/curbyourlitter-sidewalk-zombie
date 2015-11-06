@@ -13,12 +13,30 @@ export var slugifyCanType = function (canType) {
 };
 
 export var Can = detailPanel(React.createClass({
+    getImage: function (type) {
+        var path = '/images/details/';
+        if (type === 'Standard Litter Bin' || type === 'Covered Litter Bin') {
+            return path + 'standard.jpg';
+        }
+        if (type === 'BigBelly Litter Bin') {
+            return path + 'bigbelly.jpg';
+        }
+        if (type === 'Standard Paper Recycling Bin') {
+            return path + 'paper_recycling.jpg';
+        }
+        if (type === 'Standard Bottle & Can Recycling Bin') {
+            return path + 'bottle_can_recycling.jpg';
+        }
+    },
+
     render: function () {
         var iconClasses = 'detail-panel-icon detail-panel-can-icon';
+        var image = this.getImage(this.props.cantype);
         return (
             <div>
                 <NavHeader/>
                 <div className="detail-panel-can">
+                    {image ? <img src={image} /> : ''}
                     <DetailPanelHeader iconClasses={iconClasses} text="Existing Bin" />
                     <div className="detail-panel-body">
                         <div className="detail-panel-row">
