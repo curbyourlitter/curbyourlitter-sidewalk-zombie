@@ -5,6 +5,8 @@ import { History, Link } from 'react-router';
 import qwest from 'qwest';
 
 import config from '../config/config';
+import { isInGreenpoint } from '../services/CartoDB.jsx';
+import { BadLocationModal } from './BadLocationModal.jsx';
 
 var geocoder = new google.maps.Geocoder;
 
@@ -187,7 +189,7 @@ var AddressInput = React.createClass({
     },
 
     componentDidMount: function () {
-        if (this.props.latlng) {
+        if (this.props.latlng && !this.state.address) {
             this.findAddress();
         }
     },
@@ -202,6 +204,16 @@ var AddressInput = React.createClass({
         return street_number + ' ' + street;
     },
 
+    isAccurateGeocodingResult: function (result) {
+        var street_number = _.find(result.address_components, component => {
+            return component.types.indexOf('street_number') >= 0;
+        });
+        var street = _.find(result.address_components, component => {
+            return component.types.indexOf('route') >= 0;
+        });
+        return street_number && street;
+    },
+
     findAddress: function (latlng) {
         latlng = (latlng ? latlng : this.props.latlng);
         var location = {
@@ -210,6 +222,7 @@ var AddressInput = React.createClass({
         };
         geocoder.geocode({'location': location}, (results, status) => {
             if (status !== google.maps.GeocoderStatus.OK) return;
+            if (results[0].partial_match) return;
             this.setState({
                 address: this.getAddressFromGeocoder(results[0])
             });
@@ -224,9 +237,18 @@ var AddressInput = React.createClass({
         };
         geocoder.geocode(params, (results, status) => {
             if (status === google.maps.GeocoderStatus.OK) {
-                var latlng = [results[0].geometry.location.lat(), results[0].geometry.location.lng()]
-                this.props.onGeocodeFinish(latlng);
-                this.findAddress(latlng);
+                // If forward geocode doesn't contain street number and street,
+                // reject it
+                if (this.isAccurateGeocodingResult(results[0])) {
+                    var latlng = [results[0].geometry.location.lat(), results[0].geometry.location.lng()]
+                    this.props.onGeocodeFinish(latlng);
+                    this.setState({
+                        address: this.getAddressFromGeocoder(results[0])
+                    });
+                }
+                else {
+                    this.props.onError("We're having a hard time finding that address in Greenpoint. Try again?");
+                }
             }
             else {
                 this.props.onError('There was an error while getting the position of the address you entered. Please try again and let us know if the problem persists.');
@@ -300,6 +322,13 @@ var LocationInput = React.createClass({
         this.props.onLocationChange(latlng);
     },
 
+    useImageLocation: function () {
+        this.setState({
+            useFoundLocation: true
+        });
+        this.props.onLocationChange(this.props.imageLatlng);
+    },
+
     render: function () {
         var message,
             body = <AddressInput onError={this.addressError} onGeocodeBegin={this.addressGeocodeBegin} onGeocodeFinish={this.addressGeocodeFinish} latlng={this.props.latlng} />;
@@ -309,6 +338,25 @@ var LocationInput = React.createClass({
         }
         else if (this.state.enterAddress) {
             message = 'Enter the location:';
+        }
+        else if (this.props.imageLatlng && !this.state.useFoundLocation) {
+            message = 'Hey, we found location data in your photo, can we use it to place it on the map?';
+            body = (
+                <Grid className="use-found-location">
+                    <Row>
+                        <Col className="column-yes" xs={3}>
+                            <Button onClick={() => this.useImageLocation()}>
+                                Yes
+                            </Button>
+                        </Col>
+                        <Col className="column-no" xs={9}>
+                            <Button onClick={() => this.setState({ enterAddress: true })}>
+                                No, I'll Add It Below
+                            </Button>
+                        </Col>
+                    </Row>
+                </Grid>
+            );
         }
         else if (!this.props.latlng) {
             message = 'Help us find where the trash is.';
@@ -322,42 +370,15 @@ var LocationInput = React.createClass({
             if (this.state.gotLocation) {
                 message = 'Got your location!';
             }
-            else if (this.state.useFoundLocation === null) {
-                message = 'Hey, we found location data in your photo, can we use it to place it on the map?';
-                body = (
-                    <Grid className="use-found-location">
-                        <Row>
-                            <Col className="column-yes" xs={3}>
-                                <Button onClick={() => this.setState({ useFoundLocation: true })}>
-                                    Yes
-                                </Button>
-                            </Col>
-                            <Col className="column-no" xs={9}>
-                                <Button onClick={() => this.setState({ enterAddress: true })}>
-                                    No, I'll Add It Below
-                                </Button>
-                            </Col>
-                        </Row>
-                    </Grid>
-                );
-            }
             else if (this.state.useFoundLocation === true) {
                 message = 'Using the location in the image.';
             }
         }
 
-        if (this.state.error) {
-            body = (
-                <div>
-                    <Alert bsStyle='danger'>{this.state.error}</Alert>
-                    {body}
-                </div>
-            );
-        }
-
         return (
             <div className="location-input">
                 <div className="location-input-message">{message}</div>
+                { this.state.error ?  <Alert bsStyle='danger'>{this.state.error}</Alert> : null }
                 {body}
             </div>
         );
@@ -377,11 +398,28 @@ export var AddRequest = React.createClass({
             email: null,
             mailingListOptIn: false,
 
+            imageLatlng: null,
+
             error: false,
             isValid: false,
+            isInGreenpoint: null,
             submitting: false,
             success: false
         };
+    },
+
+    updateLocation: function (value) {
+        isInGreenpoint(value, (inGreenpoint) => {
+            this.setState({ isInGreenpoint: inGreenpoint });
+        });
+        this.updateField('latlng', value);
+    },
+
+    badLocationModalClosed: function () {
+        // TODO test with geolocated picture
+        this.setState({
+            isInGreenpoint: null
+        });
     },
 
     updateField: function (name, value) {
@@ -412,7 +450,7 @@ export var AddRequest = React.createClass({
     },
 
     validateRequest: function (fields) {
-        return (fields.pk && fields.type && fields.name && fields.email);
+        return (fields.pk && fields.type && fields.name && fields.email && fields.isInGreenpoint);
     },
 
     submitRequest: function (e) {
@@ -468,6 +506,7 @@ export var AddRequest = React.createClass({
     render: function () {
         return (
             <div className="add-request">
+                <BadLocationModal show={this.state.isInGreenpoint === false} onDismiss={this.badLocationModalClosed}/>
                 <header>
                     <h1>Do You See Litter?</h1>
                     <Link className="cancel" to="/">Cancel</Link>
@@ -475,9 +514,9 @@ export var AddRequest = React.createClass({
                 <form className="add-request-form" onSubmit={this.submitRequest}>
                     <ImageInput label="Photo"
                         onChangeCallback={(image) => this.updateField('image', image)} 
-                        onLocation={(latlng) => this.updateField('latlng', latlng)} 
+                        onLocation={(latlng) => this.setState({ imageLatlng: latlng })}
                         onPk={(pk) => this.updateField('pk', pk)} />
-                    <LocationInput onLocationChange={(l) => this.updateField('latlng', l)} latlng={this.state.latlng} />
+                    <LocationInput onLocationChange={this.updateLocation} latlng={this.state.latlng} imageLatlng={this.state.imageLatlng} />
                     <div className="bin-type">
                         <label>What do you think would help? (must select one)</label>
                         <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Litter Bin" value="litter_standard"/>
