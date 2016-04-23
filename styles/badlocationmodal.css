@@ -1,0 +1,261 @@
+.form-control {
+  box-shadow: none;
+}
+.form-control:focus {
+  border-color: #5194ff;
+  box-shadow: none;
+}
+.can-list-item {
+  background-color: #ebf0ee;
+  color: #688979;
+}
+.can-list-item:hover,
+.can-list-item.hovered-on-map {
+  background-color: #688979;
+}
+.can-list-item-icon {
+  background-image: url("/images/existing-bin.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 30px;
+  width: 30px;
+  margin: 0 auto;
+}
+.can-list-item-icon-column {
+  padding: 0;
+}
+.can-list-item-type {
+  font-size: 16px;
+}
+.can-list-item-location {
+  font-family: 'NationalWeb-Book', sans-serif;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.detail-panel-can h2 {
+  text-transform: capitalize;
+}
+.detail-panel-can-icon {
+  background-image: url("/images/existing-bin.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 75px;
+  width: 75px;
+  display: inline-block;
+  float: left;
+  max-width: 50%;
+}
+.detail-panel-can-header {
+  float: left;
+  font-size: 24px;
+  margin-left: 5%;
+  max-width: 50%;
+}
+.can-popup .can-icon {
+  background-image: url("/images/existing-bin.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 35px;
+  width: 35px;
+}
+.report-list-item {
+  background-color: rgba(81, 148, 255, 0.05);
+  color: #5194ff;
+}
+.report-list-item:hover,
+.report-list-item.hovered-on-map {
+  background-color: #99c0fd;
+}
+.report-list-item-icon {
+  margin: 0 auto;
+}
+.report-list-item-icon-column {
+  padding: 0;
+}
+.report-list-item-icon-dirty-conditions {
+  background-image: url("/images/dirty-conditions.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 45px;
+  width: 45px;
+}
+.report-list-item-icon-overflowing-litter-baskets {
+  background-image: url("/images/overflowing-litter-baskets.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 30px;
+  width: 30px;
+}
+.report-list-item-icon-sanitation-condition {
+  background-image: url("/images/sanitation-condition.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 30px;
+  width: 30px;
+}
+.report-list-item-complaint {
+  font-size: 16px;
+}
+.report-list-item-address {
+  font-family: 'NationalWeb-Book', sans-serif;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+.detail-panel-report h2 {
+  text-transform: capitalize;
+}
+.detail-panel-report-icon {
+  display: inline-block;
+  float: left;
+  max-width: 50%;
+}
+.detail-panel-report-icon-dirty-conditions {
+  background-image: url("/images/dirty-conditions.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100px;
+  width: 100px;
+  height: 75px;
+}
+.detail-panel-report-icon-overflowing-litter-baskets {
+  background-image: url("/images/overflowing-litter-baskets.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 75px;
+  width: 75px;
+}
+.detail-panel-report-icon-sanitation-condition {
+  background-image: url("/images/sanitation-condition.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 75px;
+  width: 75px;
+}
+.detail-panel-report-header {
+  float: left;
+  font-size: 24px;
+  margin-left: 5%;
+  max-width: 50%;
+}
+.report-popup .report-icon-dirty-conditions {
+  background-image: url("/images/dirty-conditions.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 35px;
+  width: 35px;
+}
+.report-popup .report-icon-overflowing-litter-baskets {
+  background-image: url("/images/overflowing-litter-baskets.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 35px;
+  width: 35px;
+}
+.report-popup .report-icon-sanitation-condition {
+  background-image: url("/images/sanitation-condition.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 35px;
+  width: 35px;
+}
+.request-list-item {
+  background-color: rgba(0, 166, 31, 0.05);
+  color: #00a61f;
+}
+.request-list-item:hover,
+.request-list-item.hovered-on-map {
+  background-color: #00a61f;
+}
+.request-list-item-litter-sighting {
+  background-color: rgba(81, 148, 255, 0.05);
+  color: #5194ff;
+}
+.request-list-item-litter-sighting:hover {
+  background-color: #99c0fd;
+}
+.request-list-item-icon {
+  margin: 0 auto;
+  background-image: url("/images/bin-request.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 30px;
+  width: 30px;
+}
+.request-list-item-icon-litter-sighting {
+  background-image: url("/images/litter-sighting.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 30px;
+  width: 30px;
+}
+.request-list-item-icon-column {
+  padding: 0;
+}
+.request-list-item-can-type {
+  font-size: 16px;
+  text-transform: capitalize;
+}
+.request-list-item-date {
+  font-family: 'NationalWeb-Book', sans-serif;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+.detail-panel-request h2 {
+  text-transform: capitalize;
+}
+.detail-panel-request-icon {
+  background-image: url("/images/bin-request.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 75px;
+  width: 75px;
+  display: inline-block;
+  float: left;
+  max-width: 50%;
+}
+.detail-panel-request-icon-litter-sighting {
+  background-image: url("/images/litter-sighting.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 75px;
+  width: 75px;
+}
+.detail-panel-request-header {
+  float: left;
+  font-size: 24px;
+  margin-left: 5%;
+  max-width: 50%;
+}
+.request-popup .request-icon {
+  background-image: url("/images/bin-request.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 35px;
+  width: 35px;
+}
+.request-popup .request-icon-litter-sighting {
+  background-image: url("/images/litter-sighting.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 35px;
+  width: 35px;
+}
+.bad-location-modal-wrapper {
+  background: rgba(81, 148, 255, 0.5);
+  position: absolute;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 500;
+}
+.bad-location-modal-content {
+  background: white;
+  margin: 25px;
+  padding: 25px;
+}
+.bad-location-modal-header {
+  text-transform: uppercase;
+  margin: 0;
+}

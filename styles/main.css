@@ -3722,6 +3722,24 @@ fieldset[disabled] .mailing-list-opt-in-radio .mailing-list-opt-in-input label {
   margin-bottom: 25px;
   margin-top: 25px;
 }
+.bad-location-modal-wrapper {
+  background: rgba(81, 148, 255, 0.5);
+  position: absolute;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 500;
+}
+.bad-location-modal-content {
+  background: white;
+  margin: 25px;
+  padding: 25px;
+}
+.bad-location-modal-header {
+  text-transform: uppercase;
+  margin: 0;
+}
 .entity-list .can-list-item-type {
   font-size: 21px;
   line-height: 21px;
