@@ -7,6 +7,7 @@ import { Col, Grid, Row } from 'react-bootstrap';
 import { getRequestColumnsDetails } from 'curbyourlitter-sql/lib/requests';
 
 import config from '../config/config';
+import { getStaticMapUrl } from '../services/Mapbox.jsx';
 import { NavHeader } from './NavHeader.jsx';
 import { DetailPanelHeader, detailPanel } from './Panel.jsx';
 
@@ -23,6 +24,19 @@ export var Request = detailPanel(React.createClass({
             }
         }
         return '';
+    },
+
+    getMapUrl: function () {
+        if (!(this.props.longitude && this.props.latitude)) return;
+        let type = 'request';
+        if (!this.props.can_type) {
+            type = 'sighting';
+        }
+        return getStaticMapUrl({
+            latitude: this.props.latitude,
+            longitude: this.props.longitude,
+            type: type
+        });
     },
 
     render: function () {
@@ -71,6 +85,9 @@ export var Request = detailPanel(React.createClass({
                                 );
                             }
                         })()}
+                        <div className="detail-panel-map">
+                            <img src={this.getMapUrl()} />
+                        </div>
                     </div>
                 </div>
             </div>

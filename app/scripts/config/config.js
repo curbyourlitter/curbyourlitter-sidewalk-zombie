@@ -12,6 +12,11 @@ else if (process.env.NODE_ENV === 'production') {
 
 config.bbox = [40.709532,-73.967514,40.739584,-73.923397];
 config.cartodbUser = 'curbyourlitter';
+config.mapbox = {
+    mapId: 'curbyourlitter.84a5e3d7',
+    accessToken: 'pk.eyJ1IjoiY3VyYnlvdXJsaXR0ZXIiLCJhIjoiZjY1ZTdhODUxMTkwODMwZjc0MmQwOTM2OWRmMWJhNWQifQ.55lIFZ3my8bHNeLRq54Jig',
+    staticMapEndpoint: 'https://api.mapbox.com/v4'
+};
 config.mobile = true;
 config.mobileLimit = 100;
 config.reportFilters = {
@@ -23,6 +28,12 @@ config.requestFilters = {
     litter: true,
     recycling: true,
     sightings: true
+};
+config.staticMapIcons = {
+    can: 'http://map.curbyourlitter.org/images/map-icons/map-bin-selected',
+    report: 'http://map.curbyourlitter.org/images/map-icons/map-report',
+    request: 'http://map.curbyourlitter.org/images/map-icons/map-bin-request-selected',
+    sighting: 'http://map.curbyourlitter.org/images/map-icons/map-litter-sighting'
 };
 config.tables = {
     can: 'cans',

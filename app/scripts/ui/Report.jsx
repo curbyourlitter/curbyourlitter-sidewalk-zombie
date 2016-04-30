@@ -7,6 +7,7 @@ import { Col, Grid, Row } from 'react-bootstrap';
 import { getReportColumnsDetails, getReportSqlDetails } from 'curbyourlitter-sql/lib/reports';
 
 import config from '../config/config';
+import { getStaticMapUrl } from '../services/Mapbox.jsx';
 import { NavHeader } from './NavHeader.jsx';
 import { DetailPanelHeader, detailPanel } from './Panel.jsx';
 
@@ -15,6 +16,15 @@ export var slugifyComplaintType = function (complaintType) {
 };
 
 export var Report = detailPanel(React.createClass({
+    getMapUrl: function () {
+        if (!(this.props.longitude && this.props.latitude)) return;
+        return getStaticMapUrl({
+            latitude: this.props.latitude,
+            longitude: this.props.longitude,
+            type: 'report'
+        });
+    },
+
     render: function () {
         var iconClasses = 'detail-panel-icon detail-panel-report-icon';
         if (this.props.complaint_type) {
@@ -59,6 +69,9 @@ export var Report = detailPanel(React.createClass({
                                 );
                             }
                         })()}
+                        <div className="detail-panel-map">
+                            <img src={this.getMapUrl()} />
+                        </div>
                     </div>
                 </div>
             </div>

@@ -5,6 +5,7 @@ import { Col, Grid, Row } from 'react-bootstrap';
 import { getCanColumnsDetails } from 'curbyourlitter-sql/lib/cans';
 
 import config from '../config/config';
+import { getStaticMapUrl } from '../services/Mapbox.jsx';
 import { NavHeader } from './NavHeader.jsx';
 import { DetailPanelHeader, detailPanel } from './Panel.jsx';
 
@@ -27,6 +28,15 @@ export var Can = detailPanel(React.createClass({
         if (type === 'Standard Bottle & Can Recycling Bin') {
             return path + 'bottle_can_recycling.jpg';
         }
+    },
+
+    getMapUrl: function () {
+        if (!(this.props.longitude && this.props.latitude)) return;
+        return getStaticMapUrl({
+            latitude: this.props.latitude,
+            longitude: this.props.longitude,
+            type: 'can'
+        });
     },
 
     render: function () {
@@ -73,6 +83,9 @@ export var Can = detailPanel(React.createClass({
                                 );
                             }
                         })()}
+                        <div className="detail-panel-map">
+                            <img src={this.getMapUrl()} />
+                        </div>
                     </div>
                 </div>
             </div>
