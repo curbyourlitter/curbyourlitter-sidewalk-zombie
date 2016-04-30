@@ -257,6 +257,14 @@
   margin: 0 15px;
   margin-bottom: 15px;
 }
+.detail-panel-map {
+  margin: 35px -15px -15px -15px;
+}
+.detail-panel-map img {
+  margin: 0;
+  max-width: 100%;
+  width: 100%;
+}
 .detail-panel-header {
   font-size: 25px;
   line-height: 25px;
