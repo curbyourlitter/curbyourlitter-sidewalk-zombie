@@ -1,6 +1,6 @@
 import _ from 'underscore';
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Col, Grid, Row } from 'react-bootstrap';
 import { Link } from 'react-router';
 
 import { getCans, getCanColumnsData } from 'curbyourlitter-sql/lib/cans';
@@ -28,6 +28,16 @@ export var List = React.createClass({
         this.setState({ overlayShown: false });
     },
 
+    getYears: function () {
+        let years = [];
+        const minYear = 2010;
+        const maxYear = new Date().getFullYear();
+        for (let i = minYear; i <= maxYear; i++) {
+            years.push(i);
+        }
+        return years;
+    },
+
     render: function () {
         var list = this.props.items.map(item => {
             if (item.type === 'can') {
@@ -40,10 +50,12 @@ export var List = React.createClass({
                 return <RequestListItem key={item.type + item.cartodb_id} id={item.cartodb_id} {...item} />
             }
         });
+
         return (
             <div className="list">
                 { this.state.overlayShown ? <ListOverlay hide={this.hideOverlay} /> : '' }
                 <NavHeader/>
+                <ListFilters years={this.getYears()} {...this.props} />
                 <div className="list-body">
                     <h2>
                         on the map (<span className="list-items-count">{this.props.items.length}</span>)
@@ -52,6 +64,77 @@ export var List = React.createClass({
                         {list}
                     </ul>
                 </div>
+            </div>
+        );
+    }
+});
+
+var ListFilters = React.createClass({
+    getInitialState: function () {
+        return {
+            expanded: false
+        }
+    },
+
+    handleFiltersButtonClicked: function () {
+        this.setState({ expanded: !this.state.expanded });
+    },
+
+    handleResetButtonClicked: function () {
+        this.props.onReset();
+    },
+
+    render: function () {
+        return (
+            <div className="list-filters">
+                <div className="list-filters-header">
+                    <div className="list-filters-button" onClick={this.handleFiltersButtonClicked}>filters</div>
+                    <div className="list-filters-button list-filters-button-reset" onClick={this.handleResetButtonClicked}>reset</div>
+                    <div style={{ clear: 'both' }}></div>
+                </div>
+                { this.state.expanded ?  this.renderFilters() : null }
+            </div>
+        );
+    },
+
+    renderFilters: function () {
+        return (
+            <div className="list-filters-body">
+                <Grid>
+                    <Row>
+                        <Col xs={4}>
+                            <select className="list-filters-start" onChange={e => this.props.onYearStartChange(e.target.value)} value={this.props.yearStart}>
+                                { this.props.years.map(year => <option value={year} key={year}>{year}</option>) }
+                            </select>
+                        </Col>
+                        <Col xs={4}>
+                            <span className="list-filters-date-separator">to</span>
+                        </Col>
+                        <Col xs={4}>
+                            <select className="list-filters-end" onChange={e => this.props.onYearEndChange(e.target.value)} value={this.props.yearEnd}>
+                                { this.props.years.map(year => <option value={year} key={year}>{year}</option>) }
+                            </select>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <select className="list-filters-community-input" onChange={e => this.props.onCommunityInputChange(e.target.value)} value={this.props.communityInput}>
+                            <option>All Community Input</option>
+                            <option value="litter">Litter Bin Requests</option>
+                            <option value="recycling">Recycling Bin Requests</option>
+                            <option value="">Litter Sightings</option>
+                            <option>No Community Input</option>
+                        </select>
+                    </Row>
+                    <Row>
+                        <select className="list-filters-311" onChange={e => this.props.onReportsChange(e.target.value)} value={this.props.reports}>
+                            <option>All 311 Data</option>
+                            <option>Sanitation Condition</option>
+                            <option>Overflowing Litter Bin</option>
+                            <option>Dirty Condition</option>
+                            <option>No 311 Data</option>
+                        </select>
+                    </Row>
+                </Grid>
             </div>
         );
     }
@@ -94,19 +177,98 @@ export var ListContainer = React.createClass({
             canRows: [],
             reportRows: [],
             requestRows: [],
-            rows: []
+            rows: [],
+
+            communityInput: 'All Community Input',
+            reports: 'All 311 Data',
+            yearStart: 2015,
+            yearEnd: 2016
         };
+    },
+
+    handleFiltersReset: function () {
+        this.setState({
+            communityInput: 'All Community Input',
+            reports: 'All 311 Data',
+            yearStart: 2015,
+            yearEnd: 2016
+        });
+    },
+
+    handleCommunityInputChange: function (value) {
+        this.setState({ communityInput: value });
+    },
+
+    handleReportsChange: function (value) {
+        this.setState({ reports: value });
+    },
+
+    handleYearStartChange: function (value) {
+        value = parseInt(value);
+        if (value <= this.state.yearEnd) {
+            this.setState({ yearStart: value });
+            this.getData();
+        }
+    },
+
+    handleYearEndChange: function (value) {
+        value = parseInt(value);
+        if (value >= this.state.yearStart) {
+            this.setState({ yearEnd: value });
+            this.getData();
+        }
+    },
+
+    getFilteredItems: function () {
+        let items = this.state.rows.filter(item => {
+            if (item.date) {
+                const year = new Date(item.date).getFullYear();
+                if (!(year >= this.state.yearStart && year <= this.state.yearEnd)) {
+                    return false;
+                }
+            }
+            if (item.type === 'request') {
+                if (this.state.communityInput === 'All Community Input') {
+                    return true;
+                }
+                else if (this.state.communityInput === 'No Community Input') {
+                    return false;
+                }
+                else {
+                    return item.can_type === this.state.communityInput;
+                }
+            }
+            if (item.type === 'report') {
+                if (this.state.reports === 'All 311 Data') {
+                    return true;
+                }
+                else if (this.state.reports === 'No 311 Data') {
+                    return false;
+                }
+                else {
+                    return item.complaint_type === this.state.reports;
+                }
+            }
+            return true;
+        });
+        items = items.sort((a, b) => {
+            if (!a.date && b.date) return 1;
+            if (a.date && !b.date) return -1;
+            return new Date(b.date) - new Date(a.date);
+        });
+        return items;
     },
 
     getData: function () {
         var bboxFilters = { bbox: config.bbox },
             canFilters = _.extend({}, bboxFilters),
             reportFilters = _.extend({}, bboxFilters, config.reportFilters),
-            requestFilters = _.extend({}, bboxFilters, config.requestFilters);
+            requestFilters = _.extend({}, bboxFilters, config.requestFilters),
+            yearRange = { start: this.state.yearStart, end: this.state.yearEnd };
 
         this.loadCans(canFilters);
-        this.loadReports(reportFilters);
-        this.loadRequests(requestFilters);
+        this.loadReports(reportFilters, yearRange);
+        this.loadRequests(requestFilters, yearRange);
     },
 
     loadCans: function (filters) {
@@ -121,8 +283,8 @@ export var ListContainer = React.createClass({
         }, getCanColumnsData(config), config);
     },
 
-    loadReports: function (filters) {
-        getReports(filters, null, data => {
+    loadReports: function (filters, yearRange) {
+        getReports(filters, yearRange, data => {
             if (this.isMounted()) {
                 var rows = [];
                 rows.push(...data, ...this.state.canRows, ...this.state.requestRows);
@@ -133,8 +295,8 @@ export var ListContainer = React.createClass({
         }, getReportColumnsData(config), config);
     },
 
-    loadRequests: function (filters) {
-        getRequests(filters, null, data => {
+    loadRequests: function (filters, yearRange) {
+        getRequests(filters, yearRange, data => {
             if (this.isMounted()) {
                 var rows = [];
                 rows.push(...data, ...this.state.canRows, ...this.state.reportRows);
@@ -157,6 +319,16 @@ export var ListContainer = React.createClass({
     },
 
     render: function () {
-        return <List items={this.state.rows}/>
+        return <List
+            onReset={this.handleFiltersReset}
+            onCommunityInputChange={this.handleCommunityInputChange}
+            onReportsChange={this.handleReportsChange}
+            onYearStartChange={this.handleYearStartChange}
+            onYearEndChange={this.handleYearEndChange}
+            communityInput={this.state.communityInput}
+            reports={this.state.reports}
+            yearStart={this.state.yearStart}
+            yearEnd={this.state.yearEnd}
+            items={this.getFilteredItems()} />
     }
 });

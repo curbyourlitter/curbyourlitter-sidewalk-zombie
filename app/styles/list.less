@@ -2,8 +2,6 @@
 @import "variables";
 
 .list-body {
-    padding-top: @header-height;
-
     h2 {
         background: @blue-light;
         color: white;
@@ -98,6 +96,71 @@
 
         &-body {
             font-family: @book-font-family;
+        }
+    }
+}
+
+.list-filters {
+    padding-top: @header-height;
+
+    .col-xs-4 {
+        padding: 0;
+        text-align: center;
+    }
+
+    &-body {
+        font-size: 25px;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+
+    &-date-separator {
+        color: @blue-light;
+    }
+
+    &-button {
+        color: @blue;
+        float: left;
+        font-size: 20px;
+        font-weight: 400;
+        letter-spacing: 1px;
+        line-height: 60px;
+        margin-left: 25px;
+        text-transform: uppercase;
+
+        &-reset {
+            color: @blue-light;
+            float: right;
+            margin-right: 25px;
+        }
+    }
+
+    select {
+        background: @blue-light-light data-uri("/images/select-arrows.png");
+        background-position: right 10px center;
+        background-repeat: no-repeat;
+        background-size: 8px;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        color: @blue;
+        font-weight: normal;
+        margin-bottom: 25px;
+        padding: 5px 10px;
+        width: 100%;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+
+        &.list-filters-community-input {
+            background: @green-transparent data-uri("/images/select-arrows-green.png");
+            background-position: right 10px center;
+            background-repeat: no-repeat;
+            background-size: 8px;
+            color: @green;
+        }
+
+        &:focus {
+            outline: none;
         }
     }
 }

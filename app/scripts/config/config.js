@@ -18,7 +18,7 @@ config.mapbox = {
     staticMapEndpoint: 'https://api.mapbox.com/v4'
 };
 config.mobile = true;
-config.mobileLimit = 100;
+config.mobileLimit = 250;
 config.reportFilters = {
     dirty_conditions: true,
     overflowing_litter_basket: true,
