@@ -107,6 +107,9 @@ export var ReportListItem = React.createClass({
                             <div className={iconClasses}></div>
                         </Col>
                         <Col xs={10}>
+                            <div className="report-list-item-date">
+                                {moment(this.props.date).format('MMMM D, YYYY')}
+                            </div>
                             <div className="report-list-item-complaint">{this.props.complaint_type}</div>
                             <div className="report-list-item-address">{
                                 this.props.incident_address ?

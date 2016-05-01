@@ -117,11 +117,11 @@ export var RequestListItem = React.createClass({
                             <div className={iconClasses}></div>
                         </Col>
                         <Col xs={10}>
+                            <div className="request-list-item-date">
+                                {moment(this.props.date).format('MMMM D, YYYY')}
+                            </div>
                             <div className="request-list-item-can-type">
                                 {this.props.can_type ? `${this.props.can_type} bin request` : 'litter sighting'}
-                            </div>
-                            <div className="request-list-item-date">
-                                {moment(this.props.date).format('h:mma MMMM Do YYYY')}
                             </div>
                         </Col>
                     </Row>

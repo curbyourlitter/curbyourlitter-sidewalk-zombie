@@ -5,14 +5,23 @@
         &-can-type {
             font-size: @list-item-title-font-size;
             line-height: @list-item-title-font-size;
-            margin-top: @list-item-title-margin-top;
+            margin-top: 2px;
         }
         &-date {
+            color: @green-light-light;
+            font-family: 'NationalWeb-Semibold';
             font-size: @list-item-details-font-size;
+            text-transform: uppercase;
         }
 
         &:hover {
             background-color: @green-transparent;
+        }
+
+        &-litter-sighting {
+            .request-list-item-date {
+                color: @blue-light;
+            }
         }
     }
 }
