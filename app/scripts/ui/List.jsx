@@ -1,12 +1,20 @@
 import _ from 'underscore';
 import React from 'react';
 import { Button, Col, Grid, Row } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import { getCans, getCanColumnsData } from 'curbyourlitter-sql/lib/cans';
 import { getReports, getReportColumnsData } from 'curbyourlitter-sql/lib/reports';
 import { getRequests, getRequestColumnsData } from 'curbyourlitter-sql/lib/requests';
 
+import {
+    filtersClear,
+    communityInputUpdate,
+    reportsUpdate,
+    yearStartUpdate,
+    yearEndUpdate
+} from '../actions';
 import config from '../config/config';
 import { CanListItem } from './Can.jsx';
 import { NavHeader } from './NavHeader.jsx';
@@ -171,50 +179,49 @@ var ListOverlay = React.createClass({
     }
 });
 
-export var ListContainer = React.createClass({
+function mapStateToProps(state) {
+    return {
+        communityInput: state.communityInput,
+        reports: state.reports,
+        yearStart: state.yearStart,
+        yearEnd: state.yearEnd
+    };
+}
+
+export var ListContainer = connect(mapStateToProps)(React.createClass({
     getInitialState: function () {
         return {
             canRows: [],
             reportRows: [],
             requestRows: [],
-            rows: [],
-
-            communityInput: 'All Community Input',
-            reports: 'All 311 Data',
-            yearStart: 2015,
-            yearEnd: 2016
+            rows: []
         };
     },
 
     handleFiltersReset: function () {
-        this.setState({
-            communityInput: 'All Community Input',
-            reports: 'All 311 Data',
-            yearStart: 2015,
-            yearEnd: 2016
-        });
+        this.props.dispatch(filtersClear());
     },
 
     handleCommunityInputChange: function (value) {
-        this.setState({ communityInput: value });
+        this.props.dispatch(communityInputUpdate(value));
     },
 
     handleReportsChange: function (value) {
-        this.setState({ reports: value });
+        this.props.dispatch(reportsUpdate(value));
     },
 
     handleYearStartChange: function (value) {
         value = parseInt(value);
-        if (value <= this.state.yearEnd) {
-            this.setState({ yearStart: value });
+        if (value <= this.props.yearEnd) {
+            this.props.dispatch(yearStartUpdate(value));
             this.getData();
         }
     },
 
     handleYearEndChange: function (value) {
         value = parseInt(value);
-        if (value >= this.state.yearStart) {
-            this.setState({ yearEnd: value });
+        if (value >= this.props.yearStart) {
+            this.props.dispatch(yearEndUpdate(value));
             this.getData();
         }
     },
@@ -223,30 +230,30 @@ export var ListContainer = React.createClass({
         let items = this.state.rows.filter(item => {
             if (item.date) {
                 const year = new Date(item.date).getFullYear();
-                if (!(year >= this.state.yearStart && year <= this.state.yearEnd)) {
+                if (!(year >= this.props.yearStart && year <= this.props.yearEnd)) {
                     return false;
                 }
             }
             if (item.type === 'request') {
-                if (this.state.communityInput === 'All Community Input') {
+                if (this.props.communityInput === 'All Community Input') {
                     return true;
                 }
-                else if (this.state.communityInput === 'No Community Input') {
+                else if (this.props.communityInput === 'No Community Input') {
                     return false;
                 }
                 else {
-                    return item.can_type === this.state.communityInput;
+                    return item.can_type === this.props.communityInput;
                 }
             }
             if (item.type === 'report') {
-                if (this.state.reports === 'All 311 Data') {
+                if (this.props.reports === 'All 311 Data') {
                     return true;
                 }
-                else if (this.state.reports === 'No 311 Data') {
+                else if (this.props.reports === 'No 311 Data') {
                     return false;
                 }
                 else {
-                    return item.complaint_type === this.state.reports;
+                    return item.complaint_type === this.props.reports;
                 }
             }
             return true;
@@ -264,7 +271,7 @@ export var ListContainer = React.createClass({
             canFilters = _.extend({}, bboxFilters),
             reportFilters = _.extend({}, bboxFilters, config.reportFilters),
             requestFilters = _.extend({}, bboxFilters, config.requestFilters),
-            yearRange = { start: this.state.yearStart, end: this.state.yearEnd };
+            yearRange = { start: this.props.yearStart, end: this.props.yearEnd };
 
         this.loadCans(canFilters);
         this.loadReports(reportFilters, yearRange);
@@ -325,10 +332,10 @@ export var ListContainer = React.createClass({
             onReportsChange={this.handleReportsChange}
             onYearStartChange={this.handleYearStartChange}
             onYearEndChange={this.handleYearEndChange}
-            communityInput={this.state.communityInput}
-            reports={this.state.reports}
-            yearStart={this.state.yearStart}
-            yearEnd={this.state.yearEnd}
+            communityInput={this.props.communityInput}
+            reports={this.props.reports}
+            yearStart={this.props.yearStart}
+            yearEnd={this.props.yearEnd}
             items={this.getFilteredItems()} />
     }
-});
+}));

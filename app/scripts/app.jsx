@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactAnalytics from 'ga-react-router';
 import ReactDOM from 'react-dom';
+import { combineReducers, createStore } from 'redux';
+import { connect, Provider } from 'react-redux';
 import { Route, Router } from 'react-router';
 import createHistory from 'history/lib/createBrowserHistory';
 
+import * as reducers from './reducers';
 import { AddRequest } from './ui/AddRequest.jsx';
 import { Can } from './ui/Can.jsx';
 import { ListContainer } from './ui/List.jsx';
@@ -12,6 +15,7 @@ import { Request } from './ui/Request.jsx';
 import { Success } from './ui/Success.jsx';
 
 var history = createHistory();
+let store = createStore(combineReducers(reducers));
 var mountNode = document.getElementById("app");
 
 var triggerGA = function () {
@@ -19,6 +23,7 @@ var triggerGA = function () {
 };
 
 ReactDOM.render((
+    <Provider store={store}>
         <Router history={history} onUpdate={triggerGA}>
             <Route path="/" component={ListContainer}/>
             <Route path="/add" component={AddRequest}/>
@@ -27,5 +32,6 @@ ReactDOM.render((
             <Route path="reports/:id" component={Report}/>
             <Route path="requests/:id" component={Request}/>
         </Router>
+    </Provider>
     ), mountNode
 );
