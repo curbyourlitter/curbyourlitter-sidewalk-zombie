@@ -244,13 +244,19 @@
 .entity-list .request-list-item-can-type {
   font-size: 21px;
   line-height: 21px;
-  margin-top: 8px;
+  margin-top: 2px;
 }
 .entity-list .request-list-item-date {
+  color: #b3e4bd;
+  font-family: 'NationalWeb-Semibold';
   font-size: 12px;
+  text-transform: uppercase;
 }
 .entity-list .request-list-item:hover {
   background-color: rgba(0, 166, 31, 0.05);
+}
+.entity-list .request-list-item-litter-sighting .request-list-item-date {
+  color: #99c0fd;
 }
 .detail-panel .detail-panel-request-icon,
 .detail-panel .detail-panel-request-icon-litter-sighting {
