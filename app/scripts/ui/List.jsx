@@ -72,6 +72,9 @@ export var List = React.createClass({
                         {list}
                     </ul>
                 </div>
+                <Link className="list-add-button" to="/add">
+                    <img src="/images/add.png" />
+                </Link>
             </div>
         );
     }
