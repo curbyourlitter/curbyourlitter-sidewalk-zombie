@@ -1,4 +1,5 @@
 import _ from 'underscore';
+import moment from 'moment';
 import React from 'react';
 import { Button, Col, Grid, Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
@@ -232,7 +233,7 @@ export var ListContainer = connect(mapStateToProps)(React.createClass({
     getFilteredItems: function () {
         let items = this.state.rows.filter(item => {
             if (item.date) {
-                const year = new Date(item.date).getFullYear();
+                const year = moment(item.date, 'YYYY-MM-DD HH:mm:ss').year();
                 if (!(year >= this.props.yearStart && year <= this.props.yearEnd)) {
                     return false;
                 }
