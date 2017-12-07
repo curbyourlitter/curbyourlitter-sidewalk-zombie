@@ -131,8 +131,6 @@ var ListFilters = React.createClass({
                     <Row>
                         <select className="list-filters-community-input" onChange={e => this.props.onCommunityInputChange(e.target.value)} value={this.props.communityInput}>
                             <option>All Community Input</option>
-                            <option value="litter">Litter Bin Requests</option>
-                            <option value="recycling">Recycling Bin Requests</option>
                             <option value="">Litter Sightings</option>
                             <option>No Community Input</option>
                         </select>
@@ -309,10 +307,12 @@ export var ListContainer = connect(mapStateToProps)(React.createClass({
     loadRequests: function (filters, yearRange) {
         getRequests(filters, yearRange, data => {
             if (this.isMounted()) {
+                // Filter out requests, only show sightings
+                var sightings = data.filter(row => row.can_type === null);
                 var rows = [];
-                rows.push(...data, ...this.state.canRows, ...this.state.reportRows);
+                rows.push(...sightings, ...this.state.canRows, ...this.state.reportRows);
                 this.setRows(rows);
-                this.setState({ requestRows: data });
+                this.setState({ requestRows: sightings });
                 this.forceUpdate();
             }
         }, getRequestColumnsData(config), config);
