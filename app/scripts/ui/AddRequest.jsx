@@ -130,35 +130,6 @@ var ImageInput = React.createClass({
     }
 });
 
-var BinTypeRadio = React.createClass({
-    handleClick: function () {
-        // Simulate radio change
-        this.props.onSelect({
-            target: {
-                value: this.props.value
-            }
-        });
-    },
-
-    render: function () {
-        var selected = this.props.value === this.props.selected,
-            inputClasses = 'bin-type-input';
-        if (selected) inputClasses += ' active';
-        return (
-            <div className="bin-type-radio">
-                <input type="radio" name="bin-type" onChange={this.props.onSelect} checked={selected} value={this.props.value} id={this.props.value}></input>
-                <label htmlFor={this.props.value} onClick={this.handleClick}>
-                    <span className={inputClasses}>
-                        <span></span>
-                    </span>
-                    <span className="bin-type-radio-label">{this.props.label}</span>
-                </label>
-                <div className="clearfix"></div>
-            </div>
-        );
-    }
-});
-
 var MailingListOptIn = React.createClass({
     handleClick: function (e) {
         this.props.onChange(!this.props.value);
@@ -499,10 +470,6 @@ export var AddRequest = React.createClass({
         }
     },
 
-    onTypeSelected: function (e) {
-        this.updateField('type', e.target.value);
-    },
-
     render: function () {
         return (
             <div className="add-request">
@@ -517,17 +484,6 @@ export var AddRequest = React.createClass({
                         onLocation={(latlng) => this.setState({ imageLatlng: latlng })}
                         onPk={(pk) => this.updateField('pk', pk)} />
                     <LocationInput onLocationChange={this.updateLocation} latlng={this.state.latlng} imageLatlng={this.state.imageLatlng} />
-                    <div className="bin-type">
-                        <label>What do you think would help? (must select one)</label>
-                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Litter Bin" value="litter_standard"/>
-                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Bottle & Can Recycling Bin" value="recycling_standard_bottle_can"/>
-                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Paper Recycling Bin" value="recycling_standard_paper"/>
-                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="BigBelly" value="litter_bigbelly"/>
-                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Bottle & Can Recycling BigBelly" value="recycling_bigbelly_bottle_can"/>
-                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Paper Recycling BigBelly" value="recycling_bigbelly_paper"/>
-                        <BinTypeRadio onSelect={this.onTypeSelected} selected={this.state.type} label="Other" value="other"/>
-                    </div>
-                    <Input type="textarea" className="comment" onChange={(e) => this.updateField('comment', e.target.value)} value={this.state.comment} placeholder="Write something here..." />
                     <Input type="text" onChange={(e) => this.updateField('name', e.target.value)} label="Name" value={this.state.name} placeholder="Name" />
                     <Input type="email" onChange={(e) => this.updateField('email', e.target.value)} label="Email Address" value={this.state.email} placeholder="Email Address" />
                     {(() => {
