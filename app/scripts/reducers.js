@@ -8,8 +8,8 @@ import {
 
 const DEFAULT_COMMUNITY_INPUT = 'All Community Input';
 const DEFAULT_REPORTS = 'All 311 Data';
-const DEFAULT_YEAR_START = 2015;
-const DEFAULT_YEAR_END = 2016;
+const DEFAULT_YEAR_END = new Date().getFullYear();
+const DEFAULT_YEAR_START = DEFAULT_YEAR_END - 1;
 
 export function communityInput(state, action) {
     if (!state || action.type === FILTERS_CLEAR) {
